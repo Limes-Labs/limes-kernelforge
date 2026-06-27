@@ -1,0 +1,25 @@
+from __future__ import annotations
+
+import json
+import unittest
+from pathlib import Path
+
+
+ROOT = Path(__file__).resolve().parents[1]
+
+
+class ContractTests(unittest.TestCase):
+    def test_challenge_lists_required_protected_paths(self) -> None:
+        challenge = json.loads((ROOT / "challenge.json").read_text(encoding="utf-8"))
+        forbidden = set(challenge["forbiddenPaths"])
+        for required in {"harness/**", "cases/**", "hidden_cases/**", "challenge.json", "score.json", "leaderboard/**"}:
+            self.assertIn(required, forbidden)
+
+    def test_templates_are_valid_json(self) -> None:
+        for path in (ROOT / "templates").glob("*.json"):
+            with self.subTest(path=path.name):
+                json.loads(path.read_text(encoding="utf-8"))
+
+
+if __name__ == "__main__":
+    unittest.main()

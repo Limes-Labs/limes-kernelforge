@@ -1,0 +1,26 @@
+{
+  "challenge": "limes-kernelforge",
+  "status": "candidate",
+  "commit": "<git-sha>",
+  "changed_files": [
+    "solution/rmsnorm.py",
+    "solution/rope.py",
+    "solution/attention.py",
+    "solution/kv_decode.py"
+  ],
+  "primitives": ["rmsnorm", "rope", "attention", "kv_decode"],
+  "public_score": {
+    "correct": true,
+    "max_abs_error": 0.0,
+    "max_rel_error": 0.0,
+    "public_geomean_runtime_ms": 0.0,
+    "backend": "python-stdlib"
+  },
+  "hardware_fingerprint": "local machine description",
+  "native_extension": false,
+  "method_summary": "Short description of the kernel idea.",
+  "expected_failure_modes": [
+    "Describe numerical or shape cases where this method may fail."
+  ],
+  "agent_notes": "Path or short summary of agent-led search notes, if used."
+}

@@ -1,0 +1,137 @@
+#!/usr/bin/env python3
+from __future__ import annotations
+
+import argparse
+import importlib
+import json
+import math
+import platform
+import statistics
+import sys
+import time
+from pathlib import Path
+from typing import Any
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+
+from harness import reference
+
+
+ROOT = Path(__file__).resolve().parents[1]
+PUBLIC_CASES = ROOT / "cases" / "public_smoke" / "cases.json"
+
+
+def _load_cases() -> dict[str, Any]:
+    return json.loads(PUBLIC_CASES.read_text(encoding="utf-8"))
+
+
+def _flatten(value: Any) -> list[float]:
+    if isinstance(value, list):
+        flattened: list[float] = []
+        for item in value:
+            flattened.extend(_flatten(item))
+        return flattened
+    return [float(value)]
+
+
+def _error(expected: Any, actual: Any) -> tuple[float, float]:
+    expected_values = _flatten(expected)
+    actual_values = _flatten(actual)
+    if len(expected_values) != len(actual_values):
+        return float("inf"), float("inf")
+    max_abs = 0.0
+    max_rel = 0.0
+    for exp, act in zip(expected_values, actual_values):
+        abs_error = abs(exp - act)
+        rel_error = abs_error / max(1e-12, abs(exp))
+        max_abs = max(max_abs, abs_error)
+        max_rel = max(max_rel, rel_error)
+    return max_abs, max_rel
+
+
+def _median_ms(function, *args) -> float:
+    for _ in range(2):
+        function(*args)
+    timings: list[float] = []
+    for _ in range(5):
+        start = time.perf_counter()
+        function(*args)
+        timings.append((time.perf_counter() - start) * 1000.0)
+    return statistics.median(timings)
+
+
+def _run_primitive(name: str, expected_function, solution_function, args: tuple[Any, ...]) -> dict[str, Any]:
+    expected = expected_function(*args)
+    actual = solution_function(*args)
+    max_abs, max_rel = _error(expected, actual)
+    runtime_ms = _median_ms(solution_function, *args)
+    return {
+        "max_abs_error": max_abs,
+        "max_rel_error": max_rel,
+        "runtime_ms": runtime_ms,
+        "correct": max_abs <= 1e-9 and max_rel <= 1e-9
+    }
+
+
+def public_score() -> dict[str, Any]:
+    cases = _load_cases()
+    solution_rmsnorm = importlib.import_module("solution.rmsnorm")
+    solution_rope = importlib.import_module("solution.rope")
+    solution_attention = importlib.import_module("solution.attention")
+    solution_kv_decode = importlib.import_module("solution.kv_decode")
+
+    primitive_results = {
+        "rmsnorm": _run_primitive(
+            "rmsnorm",
+            reference.rmsnorm,
+            solution_rmsnorm.rmsnorm,
+            (cases["rmsnorm"]["x"], cases["rmsnorm"]["weight"], cases["rmsnorm"]["eps"]),
+        ),
+        "rope": _run_primitive(
+            "rope",
+            reference.rope,
+            solution_rope.rope,
+            (cases["rope"]["x"], cases["rope"]["positions"], cases["rope"]["theta"]),
+        ),
+        "attention": _run_primitive(
+            "attention",
+            reference.causal_attention_prefill,
+            solution_attention.causal_attention_prefill,
+            (cases["attention"]["q"], cases["attention"]["k"], cases["attention"]["v"]),
+        ),
+        "kv_decode": _run_primitive(
+            "kv_decode",
+            reference.kv_decode,
+            solution_kv_decode.kv_decode,
+            (cases["kv_decode"]["q"], cases["kv_decode"]["k"], cases["kv_decode"]["v"]),
+        ),
+    }
+    runtimes = [max(1e-12, item["runtime_ms"]) for item in primitive_results.values()]
+    geomean = math.exp(sum(math.log(value) for value in runtimes) / len(runtimes))
+    return {
+        "correct": all(item["correct"] for item in primitive_results.values()),
+        "max_abs_error": max(item["max_abs_error"] for item in primitive_results.values()),
+        "max_rel_error": max(item["max_rel_error"] for item in primitive_results.values()),
+        "public_geomean_runtime_ms": geomean,
+        "backend": "python-stdlib",
+        "hardware_fingerprint": {
+            "platform": platform.platform(),
+            "machine": platform.machine(),
+            "python": platform.python_version()
+        },
+        "primitives": primitive_results
+    }
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description="Run the Limes KernelForge public smoke scorer.")
+    parser.add_argument("--output", default="score.json")
+    args = parser.parse_args()
+    result = public_score()
+    Path(args.output).write_text(json.dumps(result, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    print(json.dumps(result, indent=2, sort_keys=True))
+    return 0 if result["correct"] else 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

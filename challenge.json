@@ -1,0 +1,40 @@
+{
+  "id": "limes-kernelforge",
+  "name": "Limes KernelForge",
+  "cli": "limes-kernelforge",
+  "version": "0.1.0",
+  "score": {
+    "direction": "minimize",
+    "primaryMetric": "public_geomean_runtime_ms",
+    "officialMetric": "hidden_geomean_runtime_ms",
+    "officialHiddenMetric": "hidden_geomean_runtime_ms"
+  },
+  "editablePaths": [
+    "solution/rmsnorm.py",
+    "solution/rope.py",
+    "solution/attention.py",
+    "solution/kv_decode.py",
+    "solution/native/README.md"
+  ],
+  "forbiddenPaths": [
+    "harness/**",
+    "cases/**",
+    "hidden_cases/**",
+    "challenge.json",
+    "score.json",
+    "leaderboard/**"
+  ],
+  "commands": {
+    "test": "python3 -m unittest discover -s tests",
+    "score": "python3 harness/score.py --output score.json",
+    "verify": "python3 harness/verify_hidden.py --public-contract-only"
+  },
+  "statusModel": [
+    "local",
+    "candidate",
+    "verified",
+    "promoted",
+    "replicated",
+    "scaled"
+  ]
+}
