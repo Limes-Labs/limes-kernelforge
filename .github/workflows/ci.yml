@@ -21,5 +21,6 @@ jobs:
         run: |
           python3 -m json.tool templates/submission.json >/tmp/submission.json
           python3 -m json.tool templates/leaderboard-entry.json >/tmp/leaderboard-entry.json
+          python3 -m json.tool examples/limeslabs/leaderboard.example.json >/tmp/limeslabs-leaderboard.example.json
       - name: Check whitespace
         run: git diff --check

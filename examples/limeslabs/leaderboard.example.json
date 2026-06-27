@@ -1,0 +1,35 @@
+{
+  "challenge": "limes-kernelforge",
+  "schema_version": "0.1.0",
+  "source": "example-fixture",
+  "disclaimer": "Example candidate data for website development. Not an official leaderboard.",
+  "entries": [
+    {
+      "challenge": "limes-kernelforge",
+      "submission_id": "example-public-smoke-reference",
+      "status": "candidate",
+      "track": "public-smoke",
+      "method_family": "python-reference",
+      "commit": "example",
+      "score": {
+        "hidden_geomean_runtime_ms": null,
+        "public_geomean_runtime_ms": 0.005
+      },
+      "metrics": {
+        "correct": true,
+        "max_abs_error": 0.0,
+        "max_rel_error": 0.0,
+        "backend": "python-stdlib"
+      },
+      "replay": {
+        "trusted_runner": null,
+        "fixed_runner_track": null,
+        "integration_audit": false
+      },
+      "links": {
+        "repo": "https://github.com/Limes-Labs/limes-kernelforge",
+        "result_card": "examples/limeslabs/result-card.example.md"
+      }
+    }
+  ]
+}

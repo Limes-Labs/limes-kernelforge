@@ -71,6 +71,7 @@ Local timings are not public frontier claims.
 - `docs/`: anti-cheat, promotion, launch, and agent-notes policies.
 - `docs/agent-quickstart.md`: short instructions for coding agents.
 - `templates/`: submission, result-card, and leaderboard-entry schemas.
+- `examples/limeslabs/`: candidate-only fixtures for website development.
 - `tests/`: stdlib tests for contract and scorer behavior.
 
 ## Contributing
