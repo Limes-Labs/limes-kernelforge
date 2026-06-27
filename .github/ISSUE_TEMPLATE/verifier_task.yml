@@ -1,0 +1,30 @@
+name: Verifier or launch-gate task
+description: Track fixed runners, hidden cases, native policy, or website integration work.
+title: "Launch gate: <area>"
+labels: ["launch-gate"]
+body:
+  - type: textarea
+    id: goal
+    attributes:
+      label: Goal
+      description: What launch or verifier capability does this task unlock?
+    validations:
+      required: true
+  - type: textarea
+    id: checklist
+    attributes:
+      label: Checklist
+      description: Use checkboxes. Include correctness, timing, runner, documentation, and acceptance items.
+      value: |
+        - [ ] 
+        - [ ] 
+        - [ ] 
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: What must be true before this issue can close?
+    validations:
+      required: true

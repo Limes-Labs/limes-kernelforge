@@ -61,3 +61,20 @@ local -> candidate -> verified -> promoted -> replicated -> scaled
 ```
 
 Local timings are not public frontier claims.
+
+## Repository Map
+
+- `challenge.json`: Benchforge-style challenge contract.
+- `solution/`: editable participant surface.
+- `harness/`: immutable public reference and scoring code.
+- `cases/public_smoke/`: tiny public tensor cases.
+- `docs/`: anti-cheat, promotion, launch, and agent-notes policies.
+- `docs/agent-quickstart.md`: short instructions for coding agents.
+- `templates/`: submission, result-card, and leaderboard-entry schemas.
+- `tests/`: stdlib tests for contract and scorer behavior.
+
+## Contributing
+
+Start with [CONTRIBUTING.md](CONTRIBUTING.md). Agent-driven attempts should also
+read [docs/agent-quickstart.md](docs/agent-quickstart.md) before editing the
+solution surface.

@@ -1,0 +1,66 @@
+name: Candidate submission
+description: Propose a KernelForge candidate for public smoke review or fixed-runner replay.
+title: "Candidate: <short kernel method>"
+labels: ["candidate", "submission"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Local timings are not official rankings. Use this form to document a candidate artifact for review or trusted fixed-runner replay.
+  - type: input
+    id: commit
+    attributes:
+      label: Commit
+      description: Commit SHA or branch containing only editable-path changes.
+      placeholder: "abc1234"
+    validations:
+      required: true
+  - type: dropdown
+    id: status
+    attributes:
+      label: Requested status
+      options:
+        - candidate
+        - fixed-runner replay request
+        - replicated replay request
+        - integration audit request
+    validations:
+      required: true
+  - type: checkboxes
+    id: editable_paths
+    attributes:
+      label: Editable-path confirmation
+      options:
+        - label: I changed only `solution/rmsnorm.py`, `solution/rope.py`, `solution/attention.py`, `solution/kv_decode.py`, or `solution/native/README.md`.
+          required: true
+        - label: I did not edit `harness/**`, `cases/**`, `hidden_cases/**`, `challenge.json`, `score.json`, or `leaderboard/**`.
+          required: true
+  - type: textarea
+    id: method
+    attributes:
+      label: Method summary
+      description: Describe the primitive, backend, and optimization idea.
+    validations:
+      required: true
+  - type: textarea
+    id: smoke
+    attributes:
+      label: Public smoke output
+      description: Paste the JSON output from `scripts/run_smoke.sh`.
+      render: json
+    validations:
+      required: true
+  - type: textarea
+    id: numerical_risk
+    attributes:
+      label: Numerical and shape risks
+      description: Name tolerated error risks, hidden-shape risks, and known regressions.
+    validations:
+      required: true
+  - type: textarea
+    id: hardware
+    attributes:
+      label: Local hardware and backend
+      description: Include CPU/GPU/Mac details, Python version, native code status, and timing variance if known.
+    validations:
+      required: true
