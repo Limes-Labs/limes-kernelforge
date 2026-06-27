@@ -1,0 +1,25 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Run public smoke
+        run: scripts/run_smoke.sh
+      - name: Validate challenge contract
+        run: python3 -m json.tool challenge.json >/tmp/challenge.json
+      - name: Validate JSON templates
+        run: |
+          python3 -m json.tool templates/submission.json >/tmp/submission.json
+          python3 -m json.tool templates/leaderboard-entry.json >/tmp/leaderboard-entry.json
+      - name: Check whitespace
+        run: git diff --check
