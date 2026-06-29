@@ -11,7 +11,10 @@ class ChallengeContractTests(unittest.TestCase):
         contract = json.loads((ROOT / "challenge.json").read_text(encoding="utf-8"))
         self.assertEqual(contract["score"]["direction"], "minimize")
         self.assertEqual(
-            contract["score"]["primaryMetric"], "public_geomean_runtime_ms"
+            contract["score"]["primaryMetric"], "hidden_geomean_runtime_ms"
+        )
+        self.assertEqual(
+            contract["score"]["publicMetric"], "public_geomean_runtime_ms"
         )
         self.assertEqual(
             contract["score"]["officialHiddenMetric"], "hidden_geomean_runtime_ms"
@@ -42,4 +45,3 @@ class ChallengeContractTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-

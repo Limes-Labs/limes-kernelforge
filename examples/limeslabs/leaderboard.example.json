@@ -13,13 +13,20 @@
       "commit": "example",
       "score": {
         "hidden_geomean_runtime_ms": null,
-        "public_geomean_runtime_ms": 0.005
+        "public_geomean_runtime_ms": 0.0017879223109138957,
+        "reference_public_geomean_runtime_ms": 0.0019151873035416866,
+        "public_speedup_vs_reference": 1.0711803817486563
       },
       "metrics": {
         "correct": true,
         "max_abs_error": 0.0,
         "max_rel_error": 0.0,
-        "backend": "python-stdlib"
+        "public_runtime_delta_ms": -0.00012726499262779092,
+        "backend": "python-stdlib",
+        "tolerance": {
+          "abs": 1e-9,
+          "rel": 1e-9
+        }
       },
       "replay": {
         "trusted_runner": null,

@@ -19,6 +19,8 @@ from harness import reference
 
 ROOT = Path(__file__).resolve().parents[1]
 PUBLIC_CASES = ROOT / "cases" / "public_smoke" / "cases.json"
+ABS_TOL = 1e-9
+REL_TOL = 1e-9
 
 
 def _load_cases() -> dict[str, Any]:
@@ -64,12 +66,17 @@ def _run_primitive(name: str, expected_function, solution_function, args: tuple[
     expected = expected_function(*args)
     actual = solution_function(*args)
     max_abs, max_rel = _error(expected, actual)
+    reference_runtime_ms = _median_ms(expected_function, *args)
     runtime_ms = _median_ms(solution_function, *args)
+    speedup = reference_runtime_ms / max(runtime_ms, 1e-12)
     return {
         "max_abs_error": max_abs,
         "max_rel_error": max_rel,
         "runtime_ms": runtime_ms,
-        "correct": max_abs <= 1e-9 and max_rel <= 1e-9
+        "reference_runtime_ms": reference_runtime_ms,
+        "runtime_delta_ms": runtime_ms - reference_runtime_ms,
+        "speedup_vs_reference": speedup,
+        "correct": max_abs <= ABS_TOL and max_rel <= REL_TOL
     }
 
 
@@ -107,13 +114,27 @@ def public_score() -> dict[str, Any]:
         ),
     }
     runtimes = [max(1e-12, item["runtime_ms"]) for item in primitive_results.values()]
+    reference_runtimes = [
+        max(1e-12, item["reference_runtime_ms"])
+        for item in primitive_results.values()
+    ]
     geomean = math.exp(sum(math.log(value) for value in runtimes) / len(runtimes))
+    reference_geomean = math.exp(
+        sum(math.log(value) for value in reference_runtimes) / len(reference_runtimes)
+    )
     return {
         "correct": all(item["correct"] for item in primitive_results.values()),
         "max_abs_error": max(item["max_abs_error"] for item in primitive_results.values()),
         "max_rel_error": max(item["max_rel_error"] for item in primitive_results.values()),
         "public_geomean_runtime_ms": geomean,
+        "reference_public_geomean_runtime_ms": reference_geomean,
+        "public_runtime_delta_ms": geomean - reference_geomean,
+        "public_speedup_vs_reference": reference_geomean / max(geomean, 1e-12),
         "backend": "python-stdlib",
+        "tolerance": {
+            "abs": ABS_TOL,
+            "rel": REL_TOL
+        },
         "hardware_fingerprint": {
             "platform": platform.platform(),
             "machine": platform.machine(),

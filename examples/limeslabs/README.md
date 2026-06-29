@@ -12,6 +12,8 @@ Use them to render:
 Rules for website prototypes:
 
 - show `public_geomean_runtime_ms` as local candidate telemetry;
+- show `reference_public_geomean_runtime_ms` and
+  `public_speedup_vs_reference` as local reference-comparison fields;
 - keep `hidden_geomean_runtime_ms` null until fixed-runner replay exists;
 - do not render candidate examples as official runner records;
 - link back to the repository and result card for provenance.

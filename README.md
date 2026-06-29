@@ -44,7 +44,10 @@ implementations on tiny public cases and writes `score.json` with:
 - `max_abs_error`
 - `max_rel_error`
 - `public_geomean_runtime_ms`
+- `reference_public_geomean_runtime_ms`
+- `public_speedup_vs_reference`
 - `backend`
+- `tolerance`
 - `hardware_fingerprint`
 
 ## Official Verifier Contract

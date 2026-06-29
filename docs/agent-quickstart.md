@@ -7,6 +7,8 @@ This file is for coding agents pointed at KernelForge.
 Improve one LLM primitive while preserving correctness. Your local timing is
 candidate telemetry. Official ranking requires hidden correctness and fixed
 runner replay.
+Use `public_speedup_vs_reference` only as a local triage signal; fixed runner
+replay decides official speed.
 
 ## Allowed Edits
 
@@ -23,7 +25,8 @@ Do not edit protected paths listed in `challenge.json`.
 1. Read `RULES.md`, `EVAL.md`, and `docs/no-cheating-protocol.md`.
 2. Make one small primitive change.
 3. Run `scripts/run_smoke.sh`.
-4. Record correctness, timing, hardware, and failure modes.
+4. Record correctness, candidate timing, reference timing, speedup, hardware,
+   and failure modes.
 5. Keep negative or mixed attempts in notes.
 6. Stop when a candidate has a clear method summary and replay rationale.
 

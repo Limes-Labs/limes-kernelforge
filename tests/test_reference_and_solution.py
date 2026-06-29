@@ -41,11 +41,21 @@ class ReferenceAndSolutionTests(unittest.TestCase):
         self.assertEqual(score["max_abs_error"], 0.0)
         self.assertEqual(score["max_rel_error"], 0.0)
         self.assertGreater(score["public_geomean_runtime_ms"], 0.0)
+        self.assertGreater(score["reference_public_geomean_runtime_ms"], 0.0)
+        self.assertGreater(score["public_speedup_vs_reference"], 0.0)
+        self.assertAlmostEqual(
+            score["public_runtime_delta_ms"],
+            score["public_geomean_runtime_ms"] - score["reference_public_geomean_runtime_ms"],
+        )
+        self.assertEqual(score["tolerance"], {"abs": 1e-9, "rel": 1e-9})
         self.assertEqual(score["backend"], "python-stdlib")
         self.assertIn("python", score["hardware_fingerprint"])
         self.assertEqual(len(score["cases"]), 5)
+        for case in score["cases"]:
+            self.assertIn("reference_runtime_ms", case)
+            self.assertIn("speedup_vs_reference", case)
+            self.assertGreater(case["reference_runtime_ms"], 0.0)
 
 
 if __name__ == "__main__":
     unittest.main()
-

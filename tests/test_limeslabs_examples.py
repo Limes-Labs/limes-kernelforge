@@ -19,6 +19,10 @@ class LimesLabsFixtureTests(unittest.TestCase):
             self.assertEqual(entry["challenge"], "limes-kernelforge")
             self.assertEqual(entry["status"], "candidate")
             self.assertIsNone(entry["score"]["hidden_geomean_runtime_ms"])
+            self.assertIn("reference_public_geomean_runtime_ms", entry["score"])
+            self.assertIn("public_speedup_vs_reference", entry["score"])
+            self.assertIn("public_runtime_delta_ms", entry["metrics"])
+            self.assertIn("tolerance", entry["metrics"])
             self.assertIsNone(entry["replay"]["fixed_runner_track"])
             self.assertFalse(entry["replay"]["integration_audit"])
 

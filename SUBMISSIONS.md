@@ -8,7 +8,7 @@ Submit only the editable solution files plus a completed manifest from
 - commit SHA;
 - changed editable files;
 - primitive targets;
-- local public smoke metrics;
+- local public smoke metrics, including reference timing and speedup;
 - backend and hardware fingerprint;
 - native extension build instructions, if any;
 - expected numerical or shape failure modes;

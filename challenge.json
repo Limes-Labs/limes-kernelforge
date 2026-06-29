@@ -5,7 +5,8 @@
   "version": "0.1.0",
   "score": {
     "direction": "minimize",
-    "primaryMetric": "public_geomean_runtime_ms",
+    "primaryMetric": "hidden_geomean_runtime_ms",
+    "publicMetric": "public_geomean_runtime_ms",
     "officialMetric": "hidden_geomean_runtime_ms",
     "officialHiddenMetric": "hidden_geomean_runtime_ms"
   },

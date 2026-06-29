@@ -32,6 +32,9 @@ TASKS = {
     },
 }
 
+ABS_TOL = 1e-9
+REL_TOL = 1e-9
+
 
 def flatten_numbers(value):
     if isinstance(value, (int, float)):
@@ -75,26 +78,41 @@ def hardware_fingerprint():
     }
 
 
+def median_runtime_ms(function, repeats=9, **inputs):
+    timings = []
+    for _ in range(2):
+        function(**inputs)
+    for _ in range(repeats):
+        start = time.perf_counter()
+        function(**inputs)
+        timings.append((time.perf_counter() - start) * 1000.0)
+    return statistics.median(timings)
+
+
 def load_solution(task_name):
     task = TASKS[task_name]
     module = importlib.import_module(task["solution_module"])
     return getattr(module, task["solution_func"])
 
 
-def run_case(task_name, case, repeats=9, abs_tol=1e-9, rel_tol=1e-9):
+def run_case(task_name, case, repeats=9, abs_tol=ABS_TOL, rel_tol=REL_TOL):
     task = TASKS[task_name]
     inputs = case["inputs"]
     expected = task["reference_func"](**inputs)
     candidate = load_solution(task_name)
     actual = candidate(**inputs)
     max_abs, max_rel = error_stats(actual, expected)
-    correct = max_abs <= abs_tol or max_rel <= rel_tol
+    correct = max_abs <= abs_tol and max_rel <= rel_tol
 
+    reference_runtime_ms = median_runtime_ms(task["reference_func"], repeats=repeats, **inputs)
     timings = []
+    for _ in range(2):
+        candidate(**inputs)
     for _ in range(repeats):
         start = time.perf_counter()
         candidate(**inputs)
         timings.append((time.perf_counter() - start) * 1000.0)
+    runtime_ms = statistics.median(timings)
 
     return {
         "task": task_name,
@@ -102,7 +120,10 @@ def run_case(task_name, case, repeats=9, abs_tol=1e-9, rel_tol=1e-9):
         "correct": correct,
         "max_abs_error": max_abs,
         "max_rel_error": max_rel,
-        "runtime_ms": statistics.median(timings),
+        "runtime_ms": runtime_ms,
+        "reference_runtime_ms": reference_runtime_ms,
+        "runtime_delta_ms": runtime_ms - reference_runtime_ms,
+        "speedup_vs_reference": reference_runtime_ms / max(runtime_ms, 1e-12),
     }
 
 
@@ -117,13 +138,24 @@ def score_cases(cases_payload, repeats=9):
     max_abs = max(result["max_abs_error"] for result in results)
     max_rel = max(result["max_rel_error"] for result in results)
     runtimes = [result["runtime_ms"] for result in results]
+    reference_runtimes = [result["reference_runtime_ms"] for result in results]
+    public_geomean_runtime_ms = geomean(runtimes)
+    reference_public_geomean_runtime_ms = geomean(reference_runtimes)
     return {
         "correct": all(result["correct"] for result in results),
         "max_abs_error": max_abs,
         "max_rel_error": max_rel,
-        "public_geomean_runtime_ms": geomean(runtimes),
+        "public_geomean_runtime_ms": public_geomean_runtime_ms,
+        "reference_public_geomean_runtime_ms": reference_public_geomean_runtime_ms,
+        "public_runtime_delta_ms": public_geomean_runtime_ms - reference_public_geomean_runtime_ms,
+        "public_speedup_vs_reference": (
+            reference_public_geomean_runtime_ms / max(public_geomean_runtime_ms, 1e-12)
+        ),
         "backend": "python-stdlib",
+        "tolerance": {
+            "abs": ABS_TOL,
+            "rel": REL_TOL,
+        },
         "hardware_fingerprint": hardware_fingerprint(),
         "cases": results,
     }
-

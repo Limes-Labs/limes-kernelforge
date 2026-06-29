@@ -11,11 +11,18 @@ no speed score.
 - `max_abs_error`
 - `max_rel_error`
 - `public_geomean_runtime_ms`
+- `reference_public_geomean_runtime_ms`
+- `public_runtime_delta_ms`
+- `public_speedup_vs_reference`
 - `backend`
+- `tolerance`
 - `hardware_fingerprint`
 
 Public timing is candidate telemetry. It is useful for local iteration, but it
-is not an official leaderboard rank.
+is not an official leaderboard rank. The reference timing is measured on the
+same local run against the immutable stdlib reference implementation so agents
+can distinguish likely algorithmic progress from ordinary timing noise. Fixed
+runner replay still decides official ranking.
 
 ## Correctness
 
@@ -26,7 +33,9 @@ hidden shapes, longer sequences, dtype-specific tolerance, and edge cases.
 ## Official Ranking
 
 Official ranking minimizes hidden geomean runtime inside a fixed runner track
-after correctness passes. Runners must publish:
+after correctness passes. `public_geomean_runtime_ms` is a public metric for
+candidate selection; `hidden_geomean_runtime_ms` is the official primary metric.
+Runners must publish:
 
 - hardware and software fingerprint;
 - warmup count and timing repetitions;

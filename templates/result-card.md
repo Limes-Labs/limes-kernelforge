@@ -19,6 +19,10 @@ Describe the kernel, numerical choices, backend, and any native extension.
 | max_abs_error |  |
 | max_rel_error |  |
 | public_geomean_runtime_ms |  |
+| reference_public_geomean_runtime_ms |  |
+| public_runtime_delta_ms |  |
+| public_speedup_vs_reference |  |
+| tolerance |  |
 
 ## Replay And Promotion
 
