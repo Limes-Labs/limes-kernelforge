@@ -1,0 +1,74 @@
+{
+  "schema_version": "0.1.0",
+  "challenge": "limes-kernelforge",
+  "submission_id": "example-public-smoke-reference",
+  "selection_summary": {
+    "selected_attempt_id": "attempt-002",
+    "selection_reason": "The selected attempt is correctness-clean and demonstrates the candidate packet shape without claiming fixed-runner speed.",
+    "hidden_shape_assumptions": [
+      "Public cases are tiny and do not cover long sequences.",
+      "Python stdlib timings are not predictive for native fixed-runner tracks."
+    ],
+    "numerical_risks": [
+      "Tolerance behavior for float16 and bfloat16 is not exercised by public smoke.",
+      "Near-zero norm and repeated-key cases need hidden replay."
+    ]
+  },
+  "attempts": [
+    {
+      "id": "attempt-001",
+      "status": "rejected",
+      "primitive": "rmsnorm",
+      "hypothesis": "Removing the epsilon addition might improve public runtime.",
+      "changed_files": ["solution/rmsnorm.py"],
+      "command": "scripts/run_smoke.sh",
+      "public_score": {
+        "correct": true,
+        "max_abs_error": 0.0,
+        "max_rel_error": 0.0,
+        "public_geomean_runtime_ms": 0.0017,
+        "reference_public_geomean_runtime_ms": 0.0019,
+        "public_speedup_vs_reference": 1.1,
+        "backend": "python-stdlib"
+      },
+      "timing_variance_note": "Rejected because the change is numerically unsafe even if one tiny public run appears faster.",
+      "result_summary": "The idea is not replay-worthy without preserving the RMSNorm formula.",
+      "failure_modes": [
+        "Breaks near-zero rows.",
+        "Likely fails dtype-specific hidden tolerance."
+      ]
+    },
+    {
+      "id": "attempt-002",
+      "status": "selected",
+      "primitive": "rmsnorm",
+      "hypothesis": "Use the reference-shaped starter implementation as the first candidate fixture.",
+      "changed_files": [
+        "solution/rmsnorm.py",
+        "solution/rope.py",
+        "solution/attention.py",
+        "solution/kv_decode.py"
+      ],
+      "command": "scripts/run_smoke.sh",
+      "public_score": {
+        "correct": true,
+        "max_abs_error": 0.0,
+        "max_rel_error": 0.0,
+        "public_geomean_runtime_ms": 0.0017879223109138957,
+        "reference_public_geomean_runtime_ms": 0.0019151873035416866,
+        "public_speedup_vs_reference": 1.0711803817486563,
+        "backend": "python-stdlib"
+      },
+      "timing_variance_note": "Local Python timings are noisy and not official fixed-runner evidence.",
+      "result_summary": "Selected only as a candidate-shaped example with correctness intact.",
+      "failure_modes": [
+        "No hidden shapes have run.",
+        "No fixed runner track has replayed timing."
+      ]
+    }
+  ],
+  "negative_or_mixed_findings": [
+    "Tiny public timing wins are not enough for promotion.",
+    "Numerically risky approximations must be rejected even when local timing improves."
+  ]
+}

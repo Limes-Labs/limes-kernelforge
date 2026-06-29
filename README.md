@@ -100,6 +100,7 @@ Local timings are not public frontier claims.
 - `docs/limeslabs-ingestion.md`: website ingestion and status validation rules.
 - `docs/agent-quickstart.md`: short instructions for coding agents.
 - `templates/`: submission, result-card, and leaderboard-entry schemas.
+- `templates/agent-notes.example.json`: machine-checkable agent trial notes.
 - `examples/limeslabs/`: candidate-only fixtures for website development.
 - `tests/`: stdlib tests for contract and scorer behavior.
 

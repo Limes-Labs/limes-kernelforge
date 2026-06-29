@@ -37,5 +37,11 @@ true, and that primitive names and public-score fields are replay-ready. It is
 an anti-footgun screen, not a hidden-shape verifier and not a promotion
 decision.
 
+Agent-run submissions should also include validated notes:
+
+```bash
+python3 scripts/validate_agent_notes.py --input agent-notes.json
+```
+
 Native code is allowed only after the native submission rules in
 `docs/launch-todo.md` are finalized.

@@ -21,11 +21,14 @@ jobs:
         run: |
           python3 -m json.tool templates/submission.json >/tmp/submission.json
           python3 -m json.tool templates/leaderboard-entry.json >/tmp/leaderboard-entry.json
+          python3 -m json.tool templates/agent-notes.example.json >/tmp/agent-notes.example.json
           python3 -m json.tool examples/limeslabs/leaderboard.example.json >/tmp/limeslabs-leaderboard.example.json
           python3 -m json.tool verifier/replay-contract.json >/tmp/replay-contract.json
       - name: Validate submission guard entrypoint
         run: python3 scripts/check_submission.py --help >/tmp/check-submission-help.txt
       - name: Validate limeslabs fixture ingestion
         run: python3 scripts/validate_leaderboard.py --input examples/limeslabs/leaderboard.example.json
+      - name: Validate agent notes example
+        run: python3 scripts/validate_agent_notes.py --input templates/agent-notes.example.json
       - name: Check whitespace
         run: git diff --check
