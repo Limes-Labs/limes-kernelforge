@@ -5,6 +5,8 @@
 - Define CPU, Apple Silicon/Metal, CUDA, and ROCm runner configurations.
 - Keep `verifier/replay-contract.json` synchronized with fixed runner
   definitions.
+- Require fixed-runner outputs to pass
+  `scripts/validate_replay_result.py --input path/to/replay-result.json`.
 - Fill trusted-only `hidden_cases/manifest.json` with shape-suite hashes before
   promotion opens.
 - Publish warmup, repetition, and median timing policy.

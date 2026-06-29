@@ -22,6 +22,7 @@ jobs:
           python3 -m json.tool templates/submission.json >/tmp/submission.json
           python3 -m json.tool templates/leaderboard-entry.json >/tmp/leaderboard-entry.json
           python3 -m json.tool templates/agent-notes.example.json >/tmp/agent-notes.example.json
+          python3 -m json.tool templates/replay-result.example.json >/tmp/replay-result.example.json
           python3 -m json.tool examples/limeslabs/leaderboard.example.json >/tmp/limeslabs-leaderboard.example.json
           python3 -m json.tool verifier/replay-contract.json >/tmp/replay-contract.json
       - name: Validate submission guard entrypoint
@@ -30,5 +31,7 @@ jobs:
         run: python3 scripts/validate_leaderboard.py --input examples/limeslabs/leaderboard.example.json
       - name: Validate agent notes example
         run: python3 scripts/validate_agent_notes.py --input templates/agent-notes.example.json
+      - name: Validate replay-result example
+        run: python3 scripts/validate_replay_result.py --input templates/replay-result.example.json
       - name: Check whitespace
         run: git diff --check

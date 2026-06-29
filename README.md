@@ -79,6 +79,13 @@ through:
 python3 harness/verify_hidden.py --public-contract-only
 ```
 
+Trusted runner outputs should validate before any website ingestion or status
+promotion:
+
+```bash
+python3 scripts/validate_replay_result.py --input templates/replay-result.example.json
+```
+
 ## Status Labels
 
 ```text
@@ -101,6 +108,8 @@ Local timings are not public frontier claims.
 - `docs/agent-quickstart.md`: short instructions for coding agents.
 - `templates/`: submission, result-card, and leaderboard-entry schemas.
 - `templates/agent-notes.example.json`: machine-checkable agent trial notes.
+- `templates/replay-result.example.json`: schema-only trusted replay result
+  packet.
 - `examples/limeslabs/`: candidate-only fixtures for website development.
 - `tests/`: stdlib tests for contract and scorer behavior.
 

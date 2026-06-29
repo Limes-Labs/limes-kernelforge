@@ -21,6 +21,8 @@ class ContractTests(unittest.TestCase):
         self.assertIn("scripts/validate_leaderboard.py", challenge["commands"]["validateLeaderboard"])
         self.assertIn("validateAgentNotes", challenge["commands"])
         self.assertIn("scripts/validate_agent_notes.py", challenge["commands"]["validateAgentNotes"])
+        self.assertIn("validateReplayResult", challenge["commands"])
+        self.assertIn("scripts/validate_replay_result.py", challenge["commands"]["validateReplayResult"])
         self.assertEqual(verifier["challenge"], challenge["id"])
         self.assertEqual(verifier["official_primary_metric"], challenge["score"]["primaryMetric"])
         self.assertEqual(verifier["protected_surface"]["editable_paths"], challenge["editablePaths"])

@@ -12,6 +12,13 @@ python3 scripts/validate_leaderboard.py --input examples/limeslabs/leaderboard.e
 The validator reads `verifier/replay-contract.json` and enforces the status
 rules used by fixed-runner rankings.
 
+Trusted replay outputs should be validated separately before they are converted
+into promoted leaderboard entries:
+
+```bash
+python3 scripts/validate_replay_result.py --input templates/replay-result.example.json
+```
+
 ## Required Rules
 
 - `local` and `candidate` entries must keep `hidden_geomean_runtime_ms` null.
@@ -29,4 +36,6 @@ Example fixtures must say that they are not official leaderboard data.
 
 Candidate entries may be shown as local telemetry, but they must not appear in
 official fixed-runner rankings. Official rankings require hidden correctness and
-fixed-runner replay evidence from the verifier contract.
+fixed-runner replay evidence from the verifier contract. The replay-result
+payload is the source of promotion evidence; the leaderboard entry is a rendered
+summary for the website.

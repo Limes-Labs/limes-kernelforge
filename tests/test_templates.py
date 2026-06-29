@@ -11,6 +11,8 @@ class TemplateTests(unittest.TestCase):
         for relative in [
             "templates/submission.json",
             "templates/leaderboard-entry.json",
+            "templates/agent-notes.example.json",
+            "templates/replay-result.example.json",
             "cases/public_smoke/tiny_cases.json",
             "challenge.json",
         ]:
@@ -30,4 +32,3 @@ class TemplateTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-

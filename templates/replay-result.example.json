@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0",
+  "challenge": "limes-kernelforge",
+  "source": "example-schema-only",
+  "disclaimer": "Schema example only. This is not an official result, trusted replay, or leaderboard record.",
+  "submission_id": "example-submission",
+  "status": "verified",
+  "commit": "example-submission-commit",
+  "score": 0.012,
+  "metrics": {
+    "hidden_geomean_runtime_ms": 0.012,
+    "reference_hidden_geomean_runtime_ms": 0.018,
+    "hidden_speedup_vs_reference": 1.5,
+    "max_abs_error": 0.0,
+    "max_rel_error": 0.0,
+    "peak_memory_mb": 512,
+    "runner_track": "cpu-fixed",
+    "case_suite_hash": "example-hidden-case-suite-sha256",
+    "code_hash": "example-code-sha256",
+    "integration_audit": false
+  },
+  "replay": {
+    "trusted_runner": "example-runner",
+    "run_id": "example-run-id",
+    "clean_checkout": true,
+    "network_disabled": true,
+    "fixed_runner_track": "cpu-fixed",
+    "code_hash": "example-code-sha256",
+    "case_suite_hash": "example-hidden-case-suite-sha256",
+    "verifier_contract_hash": "example-contract-sha256",
+    "dependency_lock": "example-container@sha256:0000"
+  },
+  "promotion": {
+    "promotable": false,
+    "reason": "Example schema only; no trusted runner replay was performed.",
+    "gates_passed": [
+      "schema validation"
+    ],
+    "gates_failed": [
+      "trusted hidden replay",
+      "result-card publication",
+      "integration audit"
+    ],
+    "integration_audit": false
+  },
+  "links": {
+    "result_card": null,
+    "submission": null,
+    "runner_log": null
+  }
+}

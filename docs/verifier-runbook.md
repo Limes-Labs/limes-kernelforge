@@ -22,6 +22,11 @@ runner must enforce before a KernelForge result can move beyond `candidate`.
 8. Run the invalid optimization audit and mini integration audit before
    promotion.
 9. Emit the official result fields listed in `verifier/replay-contract.json`.
+10. Validate the emitted replay payload:
+
+    ```bash
+    python3 scripts/validate_replay_result.py --input path/to/replay-result.json
+    ```
 
 ## Required Trusted Artifacts
 
@@ -31,6 +36,7 @@ runner must enforce before a KernelForge result can move beyond `candidate`.
 - locked reference-baseline timings for the same runner track;
 - warmup, repetition, timer, memory-cap, and aggregation logs;
 - integration-audit result with the same code hash.
+- replay-result JSON that passes `scripts/validate_replay_result.py`.
 
 ## Anti-Probing Notes
 
