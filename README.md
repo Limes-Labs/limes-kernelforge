@@ -50,6 +50,20 @@ implementations on tiny public cases and writes `score.json` with:
 - `tolerance`
 - `hardware_fingerprint`
 
+## Submission Preflight
+
+Completed candidates should include a filled `submission.json` based on
+`templates/submission.json`. Before requesting fixed-runner replay, run:
+
+```bash
+python3 scripts/check_submission.py --manifest submission.json --base origin/main
+```
+
+The guard rejects protected-file edits, files outside the editable surface,
+placeholder manifest values, missing public-score fields, unknown primitive
+names, and candidates that are not correct on public smoke. Passing preflight
+does not imply promotion; it only means the candidate is shaped for review.
+
 ## Official Verifier Contract
 
 The official verifier will run hidden shapes and dtypes. Correctness is required

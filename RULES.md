@@ -26,6 +26,13 @@ Official submissions must not edit:
 
 The same forbidden paths are listed in `challenge.json`.
 
+The local preflight guard can catch most accidental contract violations before
+review:
+
+```bash
+python3 scripts/check_submission.py --manifest submission.json --base origin/main
+```
+
 ## Prohibited Behavior
 
 - Changing public or hidden tensor cases.

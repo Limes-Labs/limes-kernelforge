@@ -27,13 +27,16 @@ Do not edit protected paths listed in `challenge.json`.
 3. Run `scripts/run_smoke.sh`.
 4. Record correctness, candidate timing, reference timing, speedup, hardware,
    and failure modes.
-5. Keep negative or mixed attempts in notes.
-6. Stop when a candidate has a clear method summary and replay rationale.
+5. Fill `submission.json` from `templates/submission.json`.
+6. Run `python3 scripts/check_submission.py --manifest submission.json --base origin/main`.
+7. Keep negative or mixed attempts in notes.
+8. Stop when a candidate has a clear method summary and replay rationale.
 
 ## Done Criteria
 
 - Public smoke passes with `correct: true`.
 - Tests pass.
 - JSON templates still parse.
+- Submission preflight passes for the completed manifest.
 - Numerical risks and hidden-shape assumptions are documented.
 - Agent notes list failed variants and local timing variance when available.
