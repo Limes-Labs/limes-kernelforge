@@ -17,6 +17,8 @@ class ContractTests(unittest.TestCase):
             self.assertIn(required, forbidden)
         self.assertIn("audit", challenge["commands"])
         self.assertIn("scripts/check_submission.py", challenge["commands"]["audit"])
+        self.assertIn("validateLeaderboard", challenge["commands"])
+        self.assertIn("scripts/validate_leaderboard.py", challenge["commands"]["validateLeaderboard"])
         self.assertEqual(verifier["challenge"], challenge["id"])
         self.assertEqual(verifier["official_primary_metric"], challenge["score"]["primaryMetric"])
         self.assertEqual(verifier["protected_surface"]["editable_paths"], challenge["editablePaths"])

@@ -15,3 +15,4 @@
   norms.
 - Add mini integration audit.
 - Wire `templates/leaderboard-entry.json` into `limeslabs.eu`.
+- Reuse `scripts/validate_leaderboard.py` in the `limeslabs.eu` ingestion job.

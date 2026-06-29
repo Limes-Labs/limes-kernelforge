@@ -17,3 +17,9 @@ Rules for website prototypes:
 - keep `hidden_geomean_runtime_ms` null until fixed-runner replay exists;
 - do not render candidate examples as official runner records;
 - link back to the repository and result card for provenance.
+
+Validate fixture payloads with:
+
+```bash
+python3 scripts/validate_leaderboard.py --input examples/limeslabs/leaderboard.example.json
+```

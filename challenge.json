@@ -29,7 +29,8 @@
     "test": "python3 -m unittest discover -s tests",
     "score": "python3 harness/score.py --output score.json",
     "verify": "python3 harness/verify_hidden.py --public-contract-only",
-    "audit": "python3 scripts/check_submission.py --manifest submission.json --base origin/main"
+    "audit": "python3 scripts/check_submission.py --manifest submission.json --base origin/main",
+    "validateLeaderboard": "python3 scripts/validate_leaderboard.py --input examples/limeslabs/leaderboard.example.json"
   },
   "statusModel": [
     "local",

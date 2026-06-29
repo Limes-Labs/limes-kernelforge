@@ -97,6 +97,7 @@ Local timings are not public frontier claims.
   ingestion contract. It does not include hidden cases.
 - `docs/`: anti-cheat, promotion, launch, and agent-notes policies.
 - `docs/verifier-runbook.md`: trusted-runner replay checklist.
+- `docs/limeslabs-ingestion.md`: website ingestion and status validation rules.
 - `docs/agent-quickstart.md`: short instructions for coding agents.
 - `templates/`: submission, result-card, and leaderboard-entry schemas.
 - `examples/limeslabs/`: candidate-only fixtures for website development.

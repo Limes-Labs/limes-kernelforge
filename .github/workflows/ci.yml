@@ -25,5 +25,7 @@ jobs:
           python3 -m json.tool verifier/replay-contract.json >/tmp/replay-contract.json
       - name: Validate submission guard entrypoint
         run: python3 scripts/check_submission.py --help >/tmp/check-submission-help.txt
+      - name: Validate limeslabs fixture ingestion
+        run: python3 scripts/validate_leaderboard.py --input examples/limeslabs/leaderboard.example.json
       - name: Check whitespace
         run: git diff --check
