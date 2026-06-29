@@ -2,6 +2,8 @@
 
 KernelForge is correctness-first. A submission that fails tolerance checks has
 no speed score.
+The public machine-readable verifier contract is
+`verifier/replay-contract.json`.
 
 ## Public Smoke Metrics
 
@@ -43,3 +45,7 @@ Runners must publish:
 - memory cap;
 - tolerance matrix by dtype;
 - integration audit result.
+
+The public repository intentionally sets `hidden_verifier_ready` to `false` in
+the replay contract until hidden cases, runner manifests, lockfiles, and fixed
+hardware definitions exist outside the public repo.

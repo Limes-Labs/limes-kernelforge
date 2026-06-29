@@ -71,6 +71,14 @@ before timing. Speed is ranked only inside fixed runner tracks: CPU, Apple
 Silicon/Metal, CUDA, and ROCm. Promotion requires a mini integration audit so a
 microbenchmark win is not treated as an end-to-end improvement.
 
+The machine-readable public verifier contract lives at
+`verifier/replay-contract.json`. Trusted runners can inspect the same contract
+through:
+
+```bash
+python3 harness/verify_hidden.py --public-contract-only
+```
+
 ## Status Labels
 
 ```text
@@ -85,7 +93,10 @@ Local timings are not public frontier claims.
 - `solution/`: editable participant surface.
 - `harness/`: immutable public reference and scoring code.
 - `cases/public_smoke/`: tiny public tensor cases.
+- `verifier/replay-contract.json`: public fixed-runner, promotion, and
+  ingestion contract. It does not include hidden cases.
 - `docs/`: anti-cheat, promotion, launch, and agent-notes policies.
+- `docs/verifier-runbook.md`: trusted-runner replay checklist.
 - `docs/agent-quickstart.md`: short instructions for coding agents.
 - `templates/`: submission, result-card, and leaderboard-entry schemas.
 - `examples/limeslabs/`: candidate-only fixtures for website development.

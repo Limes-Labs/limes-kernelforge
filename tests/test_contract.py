@@ -11,11 +11,16 @@ ROOT = Path(__file__).resolve().parents[1]
 class ContractTests(unittest.TestCase):
     def test_challenge_lists_required_protected_paths(self) -> None:
         challenge = json.loads((ROOT / "challenge.json").read_text(encoding="utf-8"))
+        verifier = json.loads((ROOT / "verifier/replay-contract.json").read_text(encoding="utf-8"))
         forbidden = set(challenge["forbiddenPaths"])
         for required in {"harness/**", "cases/**", "hidden_cases/**", "challenge.json", "score.json", "leaderboard/**"}:
             self.assertIn(required, forbidden)
         self.assertIn("audit", challenge["commands"])
         self.assertIn("scripts/check_submission.py", challenge["commands"]["audit"])
+        self.assertEqual(verifier["challenge"], challenge["id"])
+        self.assertEqual(verifier["official_primary_metric"], challenge["score"]["primaryMetric"])
+        self.assertEqual(verifier["protected_surface"]["editable_paths"], challenge["editablePaths"])
+        self.assertEqual(verifier["protected_surface"]["forbidden_paths"], challenge["forbiddenPaths"])
 
     def test_templates_are_valid_json(self) -> None:
         for path in (ROOT / "templates").glob("*.json"):

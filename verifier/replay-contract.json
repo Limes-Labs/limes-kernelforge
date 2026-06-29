@@ -1,0 +1,153 @@
+{
+  "schema_version": "0.1.0",
+  "challenge": "limes-kernelforge",
+  "hidden_verifier_ready": false,
+  "mode": "public-contract-only",
+  "official_primary_metric": "hidden_geomean_runtime_ms",
+  "public_metric": "public_geomean_runtime_ms",
+  "score_direction": "minimize",
+  "correctness_first": true,
+  "status_model": [
+    "local",
+    "candidate",
+    "verified",
+    "promoted",
+    "replicated",
+    "scaled"
+  ],
+  "submission_preflight": {
+    "command": "python3 scripts/check_submission.py --manifest submission.json --base origin/main",
+    "requires_exact_diff_match": true,
+    "allowed_statuses_before_replay": ["local", "candidate"]
+  },
+  "protected_surface": {
+    "editable_paths": [
+      "solution/rmsnorm.py",
+      "solution/rope.py",
+      "solution/attention.py",
+      "solution/kv_decode.py",
+      "solution/native/README.md"
+    ],
+    "forbidden_paths": [
+      "harness/**",
+      "cases/**",
+      "hidden_cases/**",
+      "challenge.json",
+      "score.json",
+      "leaderboard/**"
+    ]
+  },
+  "trusted_runner": {
+    "clean_checkout": true,
+    "network": "disabled during official scoring",
+    "dependency_policy": "fixed lockfile or container before promotion opens",
+    "generated_files_may_not_be_submitted": ["score.json"],
+    "public_timings_are_candidate_only": true
+  },
+  "runner_tracks": [
+    {
+      "id": "cpu-fixed",
+      "status": "pending-runner-freeze",
+      "backend": "CPU stdlib or native CPU extension",
+      "official_ranking": true
+    },
+    {
+      "id": "apple-metal-fixed",
+      "status": "pending-runner-freeze",
+      "backend": "Apple Silicon Metal or Accelerate-compatible path",
+      "official_ranking": true
+    },
+    {
+      "id": "cuda-fixed",
+      "status": "pending-runner-freeze",
+      "backend": "CUDA or Triton",
+      "official_ranking": true
+    },
+    {
+      "id": "rocm-fixed",
+      "status": "pending-runner-freeze",
+      "backend": "ROCm or HIP",
+      "official_ranking": true
+    }
+  ],
+  "hidden_case_policy": {
+    "hidden_cases_bundled": false,
+    "manifest_path_on_trusted_runners": "hidden_cases/manifest.json",
+    "hash_algorithm": "sha256",
+    "candidate_selection_uses_hidden_cases": false,
+    "hidden_shapes_are_not_disclosed_before_candidate_freeze": true
+  },
+  "tolerance_matrix": {
+    "float64": {
+      "abs": 1e-9,
+      "rel": 1e-9
+    },
+    "float32": {
+      "abs": 1e-5,
+      "rel": 1e-5
+    },
+    "float16": {
+      "abs": 5e-3,
+      "rel": 5e-3
+    },
+    "bfloat16": {
+      "abs": 8e-3,
+      "rel": 8e-3
+    }
+  },
+  "timing_policy": {
+    "warmup_iterations": "fixed per runner track",
+    "timed_repetitions": "fixed per runner track",
+    "aggregation": "median per case, geomean across cases",
+    "timer": "runner-native monotonic timer",
+    "memory_cap": "fixed per runner track",
+    "hardware_fingerprint_required": true
+  },
+  "promotion_gates": {
+    "candidate": [
+      "submission preflight passes",
+      "public smoke correct is true",
+      "public speed telemetry and hardware fingerprint are present"
+    ],
+    "verified": [
+      "hidden correctness passes on the chosen fixed runner track",
+      "hidden_geomean_runtime_ms is emitted with case and code hashes",
+      "no forbidden path edits are present"
+    ],
+    "promoted": [
+      "fixed-runner hidden geomean improves the locked reference baseline",
+      "memory cap is respected",
+      "invalid optimization pattern audit passes"
+    ],
+    "replicated": [
+      "a second fixed-runner replay agrees within the track variance threshold",
+      "result-card documents regressions and numerical edge cases"
+    ],
+    "scaled": [
+      "larger hidden shapes preserve correctness and speed direction",
+      "mini inference or training-loop integration audit passes"
+    ]
+  },
+  "official_result_schema": {
+    "score": "number",
+    "metrics": [
+      "hidden_geomean_runtime_ms",
+      "reference_hidden_geomean_runtime_ms",
+      "hidden_speedup_vs_reference",
+      "max_abs_error",
+      "max_rel_error",
+      "peak_memory_mb",
+      "runner_track",
+      "case_suite_hash",
+      "code_hash",
+      "integration_audit"
+    ]
+  },
+  "limeslabs_ingestion": {
+    "candidate_entries_allowed": true,
+    "promoted_entries_require_fixed_runner_track": true,
+    "hidden_metric_must_be_null_before_verified_status": true,
+    "status_field_required": true,
+    "result_card_required_for_promoted_status": true
+  }
+}

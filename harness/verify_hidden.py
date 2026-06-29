@@ -3,22 +3,11 @@ from __future__ import annotations
 
 import argparse
 import json
+from pathlib import Path
 
 
-CONTRACT = {
-    "hidden_verifier_ready": False,
-    "mode": "public-contract-only",
-    "official_primary_metric": "hidden_geomean_runtime_ms",
-    "requires": [
-        "hidden shape suite",
-        "dtype-specific tolerance matrix",
-        "fixed CPU, Apple Silicon/Metal, CUDA, and ROCm runner definitions",
-        "warmup, repetition, and median timing policy",
-        "memory caps",
-        "native extension sandbox rules",
-        "mini integration audit"
-    ]
-}
+ROOT = Path(__file__).resolve().parents[1]
+CONTRACT_PATH = ROOT / "verifier" / "replay-contract.json"
 
 
 def main() -> int:
@@ -27,7 +16,8 @@ def main() -> int:
     args = parser.parse_args()
     if not args.public_contract_only:
         raise SystemExit("hidden verifier cases are not bundled; use --public-contract-only")
-    print(json.dumps(CONTRACT, indent=2, sort_keys=True))
+    contract = json.loads(CONTRACT_PATH.read_text(encoding="utf-8"))
+    print(json.dumps(contract, indent=2, sort_keys=True))
     return 0
 
 
