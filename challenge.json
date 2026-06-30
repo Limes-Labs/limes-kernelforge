@@ -20,6 +20,7 @@
   "forbiddenPaths": [
     "harness/**",
     "cases/**",
+    "verifier/**",
     "hidden_cases/**",
     "challenge.json",
     "score.json",

@@ -13,7 +13,15 @@ class ContractTests(unittest.TestCase):
         challenge = json.loads((ROOT / "challenge.json").read_text(encoding="utf-8"))
         verifier = json.loads((ROOT / "verifier/replay-contract.json").read_text(encoding="utf-8"))
         forbidden = set(challenge["forbiddenPaths"])
-        for required in {"harness/**", "cases/**", "hidden_cases/**", "challenge.json", "score.json", "leaderboard/**"}:
+        for required in {
+            "harness/**",
+            "cases/**",
+            "verifier/**",
+            "hidden_cases/**",
+            "challenge.json",
+            "score.json",
+            "leaderboard/**",
+        }:
             self.assertIn(required, forbidden)
         self.assertIn("audit", challenge["commands"])
         self.assertIn("scripts/check_submission.py", challenge["commands"]["audit"])
@@ -24,6 +32,7 @@ class ContractTests(unittest.TestCase):
         self.assertIn("validateReplayResult", challenge["commands"])
         self.assertIn("scripts/validate_replay_result.py", challenge["commands"]["validateReplayResult"])
         self.assertEqual(verifier["challenge"], challenge["id"])
+        self.assertEqual(verifier["task_spec_path"], "verifier/task-spec.json")
         self.assertEqual(verifier["official_primary_metric"], challenge["score"]["primaryMetric"])
         self.assertEqual(verifier["protected_surface"]["editable_paths"], challenge["editablePaths"])
         self.assertEqual(verifier["protected_surface"]["forbidden_paths"], challenge["forbiddenPaths"])

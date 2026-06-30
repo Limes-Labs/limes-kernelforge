@@ -24,8 +24,9 @@ and an integration audit inside a mini inference or training loop.
 - `solution/native/README.md` for future CUDA, Triton, Metal, HIP, or SIMD
   extension notes.
 
-Everything under `harness/`, `cases/`, `hidden_cases/`, `leaderboard/`,
-`challenge.json`, and generated score files is protected for official runs.
+Everything under `harness/`, `cases/`, `verifier/`, `hidden_cases/`,
+`leaderboard/`, `challenge.json`, and generated score files is protected for
+official runs.
 
 ## Quickstart
 
@@ -102,6 +103,8 @@ Local timings are not public frontier claims.
 - `cases/public_smoke/`: tiny public tensor cases.
 - `verifier/replay-contract.json`: public fixed-runner, promotion, and
   ingestion contract. It does not include hidden cases.
+- `verifier/task-spec.json`: public primitive and hidden replay-axis
+  specification. It does not include hidden cases.
 - `docs/`: anti-cheat, promotion, launch, and agent-notes policies.
 - `docs/verifier-runbook.md`: trusted-runner replay checklist.
 - `docs/limeslabs-ingestion.md`: website ingestion and status validation rules.

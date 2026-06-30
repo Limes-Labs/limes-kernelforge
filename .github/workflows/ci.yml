@@ -25,6 +25,7 @@ jobs:
           python3 -m json.tool templates/replay-result.example.json >/tmp/replay-result.example.json
           python3 -m json.tool examples/limeslabs/leaderboard.example.json >/tmp/limeslabs-leaderboard.example.json
           python3 -m json.tool verifier/replay-contract.json >/tmp/replay-contract.json
+          python3 -m json.tool verifier/task-spec.json >/tmp/task-spec.json
       - name: Validate submission guard entrypoint
         run: python3 scripts/check_submission.py --help >/tmp/check-submission-help.txt
       - name: Validate limeslabs fixture ingestion

@@ -23,6 +23,7 @@ class ChallengeContractTests(unittest.TestCase):
         for protected in [
             "harness/**",
             "cases/**",
+            "verifier/**",
             "hidden_cases/**",
             "challenge.json",
             "score.json",
@@ -35,6 +36,7 @@ class ChallengeContractTests(unittest.TestCase):
         for protected in [
             "harness/**",
             "cases/**",
+            "verifier/**",
             "hidden_cases/**",
             "challenge.json",
             "score.json",

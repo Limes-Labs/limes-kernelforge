@@ -49,11 +49,11 @@ class SubmissionGuardTests(unittest.TestCase):
 
     def test_classifies_editable_forbidden_and_unknown_paths(self) -> None:
         classified = classify_changed_paths(
-            ["solution/rmsnorm.py", "cases/public_smoke/cases.json", "README.md"],
+            ["solution/rmsnorm.py", "cases/public_smoke/cases.json", "verifier/task-spec.json", "README.md"],
             self.contract,
         )
         self.assertEqual(classified["editable"], ["solution/rmsnorm.py"])
-        self.assertEqual(classified["forbidden"], ["cases/public_smoke/cases.json"])
+        self.assertEqual(classified["forbidden"], ["cases/public_smoke/cases.json", "verifier/task-spec.json"])
         self.assertEqual(classified["unknown"], ["README.md"])
 
     def test_valid_manifest_passes(self) -> None:

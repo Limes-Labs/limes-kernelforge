@@ -19,6 +19,7 @@ Official submissions must not edit:
 
 - `harness/**`
 - `cases/**`
+- `verifier/**`
 - `hidden_cases/**`
 - `challenge.json`
 - `score.json`
@@ -36,8 +37,8 @@ python3 scripts/check_submission.py --manifest submission.json --base origin/mai
 ## Prohibited Behavior
 
 - Changing public or hidden tensor cases.
-- Changing the reference harness, tolerances, timing policy, or challenge
-  contract.
+- Changing the reference harness, verifier specs, tolerances, timing policy, or
+  challenge contract.
 - Claiming a local timing as an official fixed-runner result.
 - Downloading code, models, data, or remote services during official scoring.
 - Returning approximations outside tolerance to win speed.

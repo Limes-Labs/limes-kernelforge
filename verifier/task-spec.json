@@ -1,0 +1,135 @@
+{
+  "schema_version": "0.1.0",
+  "challenge": "limes-kernelforge",
+  "purpose": "Machine-readable description of the public primitives, hidden replay axes, and invalid optimization patterns. This file does not expose hidden cases.",
+  "public_surface": {
+    "candidate_only": true,
+    "case_files": [
+      "cases/public_smoke/cases.json",
+      "cases/public_smoke/tiny_cases.json"
+    ],
+    "public_metric": "public_geomean_runtime_ms",
+    "official_metric": "hidden_geomean_runtime_ms"
+  },
+  "primitives": [
+    {
+      "id": "rmsnorm",
+      "editable_file": "solution/rmsnorm.py",
+      "reference_function": "harness.reference.rmsnorm",
+      "public_case_key": "rmsnorm",
+      "correctness_invariants": [
+        "preserve epsilon in the denominator",
+        "match reference output within dtype tolerance",
+        "handle near-zero rows without division instability"
+      ],
+      "hidden_replay_axes": [
+        "long hidden dimensions",
+        "near-zero norm rows",
+        "mixed magnitude vectors",
+        "float32, float16, and bfloat16 tolerance"
+      ],
+      "invalid_patterns": [
+        "removing epsilon to win one timing case",
+        "special-casing public tensor values",
+        "returning approximations outside tolerance"
+      ]
+    },
+    {
+      "id": "rope",
+      "editable_file": "solution/rope.py",
+      "reference_function": "harness.reference.rope",
+      "public_case_key": "rope",
+      "correctness_invariants": [
+        "preserve pairwise rotation semantics",
+        "respect position-dependent phase",
+        "keep odd or unusual dimensions explicit in validation"
+      ],
+      "hidden_replay_axes": [
+        "large position ids",
+        "long context lengths",
+        "theta variation",
+        "dtype-specific trigonometric error"
+      ],
+      "invalid_patterns": [
+        "precomputing only public positions",
+        "dropping high-frequency dimensions",
+        "using lower precision without tolerance evidence"
+      ]
+    },
+    {
+      "id": "attention",
+      "editable_file": "solution/attention.py",
+      "reference_function": "harness.reference.causal_attention_prefill",
+      "public_case_key": "attention",
+      "correctness_invariants": [
+        "preserve causal masking",
+        "use numerically stable softmax",
+        "match reference output for every query position"
+      ],
+      "hidden_replay_axes": [
+        "longer sequence lengths",
+        "large negative logits",
+        "repeated keys",
+        "different head dimensions"
+      ],
+      "invalid_patterns": [
+        "using non-causal attention",
+        "skipping softmax normalization",
+        "assuming public sequence length or head dimension"
+      ]
+    },
+    {
+      "id": "kv_decode",
+      "editable_file": "solution/kv_decode.py",
+      "reference_function": "harness.reference.kv_decode",
+      "public_case_key": "kv_decode",
+      "correctness_invariants": [
+        "preserve decode-step attention semantics",
+        "handle growing cache length",
+        "match reference output under tolerance"
+      ],
+      "hidden_replay_axes": [
+        "long KV cache length",
+        "shared-prefix cache cases",
+        "repeated or nearly identical keys",
+        "batch-size variation"
+      ],
+      "invalid_patterns": [
+        "assuming cache length from public cases",
+        "dropping old keys to reduce work",
+        "using approximate top-k attention without an allowed track"
+      ]
+    }
+  ],
+  "official_replay_axes": [
+    {
+      "id": "hidden-correctness",
+      "description": "Run hidden shapes and dtypes before timing. Incorrect submissions receive no official runtime rank.",
+      "must_record": [
+        "case_suite_hash",
+        "max_abs_error",
+        "max_rel_error",
+        "runner_track"
+      ]
+    },
+    {
+      "id": "fixed-runner-timing",
+      "description": "Time only correct submissions on frozen CPU, Apple Silicon/Metal, CUDA, and ROCm runner tracks.",
+      "must_record": [
+        "hidden_geomean_runtime_ms",
+        "reference_hidden_geomean_runtime_ms",
+        "hidden_speedup_vs_reference",
+        "peak_memory_mb"
+      ]
+    },
+    {
+      "id": "integration-audit",
+      "description": "Promoted microbench wins must survive a mini inference or training-loop integration audit before scaled status.",
+      "must_record": [
+        "integration_audit",
+        "code_hash",
+        "failure_modes"
+      ]
+    }
+  ]
+}
