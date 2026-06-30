@@ -9,10 +9,16 @@ class PublicScoreTests(unittest.TestCase):
     def test_public_score_is_correct(self) -> None:
         score = public_score()
         self.assertTrue(score["correct"])
+        self.assertTrue(score["primary_correct"])
+        self.assertTrue(score["public_stress_correct"])
         self.assertLessEqual(score["max_abs_error"], 1e-9)
         self.assertLessEqual(score["max_rel_error"], 1e-9)
         self.assertGreater(score["public_geomean_runtime_ms"], 0.0)
         self.assertGreater(score["reference_public_geomean_runtime_ms"], 0.0)
+        self.assertGreater(score["public_stress_geomean_runtime_ms"], 0.0)
+        self.assertGreater(score["reference_public_stress_geomean_runtime_ms"], 0.0)
+        self.assertGreater(score["public_stress_speedup_vs_reference"], 0.0)
+        self.assertGreaterEqual(score["public_stress_case_count"], 4)
         self.assertGreater(score["public_speedup_vs_reference"], 0.0)
         self.assertAlmostEqual(
             score["public_runtime_delta_ms"],

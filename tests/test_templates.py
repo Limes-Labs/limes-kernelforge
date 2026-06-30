@@ -17,6 +17,7 @@ class TemplateTests(unittest.TestCase):
             "verifier/trusted-runner-manifest.example.json",
             "verifier/baseline-record.example.json",
             "cases/public_smoke/tiny_cases.json",
+            "cases/public_smoke/stress_cases.json",
             "challenge.json",
         ]:
             with self.subTest(relative=relative):

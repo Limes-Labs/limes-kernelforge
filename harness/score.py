@@ -15,16 +15,22 @@ from typing import Any
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from harness import reference
+from harness.scoring import score_cases
 
 
 ROOT = Path(__file__).resolve().parents[1]
 PUBLIC_CASES = ROOT / "cases" / "public_smoke" / "cases.json"
+PUBLIC_STRESS_CASES = ROOT / "cases" / "public_smoke" / "stress_cases.json"
 ABS_TOL = 1e-9
 REL_TOL = 1e-9
 
 
 def _load_cases() -> dict[str, Any]:
     return json.loads(PUBLIC_CASES.read_text(encoding="utf-8"))
+
+
+def _load_stress_cases() -> dict[str, Any]:
+    return json.loads(PUBLIC_STRESS_CASES.read_text(encoding="utf-8"))
 
 
 def _flatten(value: Any) -> list[float]:
@@ -82,6 +88,7 @@ def _run_primitive(name: str, expected_function, solution_function, args: tuple[
 
 def public_score() -> dict[str, Any]:
     cases = _load_cases()
+    stress = score_cases(_load_stress_cases(), repeats=1)
     solution_rmsnorm = importlib.import_module("solution.rmsnorm")
     solution_rope = importlib.import_module("solution.rope")
     solution_attention = importlib.import_module("solution.attention")
@@ -122,14 +129,25 @@ def public_score() -> dict[str, Any]:
     reference_geomean = math.exp(
         sum(math.log(value) for value in reference_runtimes) / len(reference_runtimes)
     )
+    primary_correct = all(item["correct"] for item in primitive_results.values())
+    primary_max_abs = max(item["max_abs_error"] for item in primitive_results.values())
+    primary_max_rel = max(item["max_rel_error"] for item in primitive_results.values())
     return {
-        "correct": all(item["correct"] for item in primitive_results.values()),
-        "max_abs_error": max(item["max_abs_error"] for item in primitive_results.values()),
-        "max_rel_error": max(item["max_rel_error"] for item in primitive_results.values()),
+        "correct": primary_correct and stress["correct"],
+        "primary_correct": primary_correct,
+        "max_abs_error": max(primary_max_abs, stress["max_abs_error"]),
+        "max_rel_error": max(primary_max_rel, stress["max_rel_error"]),
         "public_geomean_runtime_ms": geomean,
         "reference_public_geomean_runtime_ms": reference_geomean,
         "public_runtime_delta_ms": geomean - reference_geomean,
         "public_speedup_vs_reference": reference_geomean / max(geomean, 1e-12),
+        "public_stress_correct": stress["correct"],
+        "public_stress_case_count": len(stress["cases"]),
+        "public_stress_max_abs_error": stress["max_abs_error"],
+        "public_stress_max_rel_error": stress["max_rel_error"],
+        "public_stress_geomean_runtime_ms": stress["public_geomean_runtime_ms"],
+        "reference_public_stress_geomean_runtime_ms": stress["reference_public_geomean_runtime_ms"],
+        "public_stress_speedup_vs_reference": stress["public_speedup_vs_reference"],
         "backend": "python-stdlib",
         "tolerance": {
             "abs": ABS_TOL,

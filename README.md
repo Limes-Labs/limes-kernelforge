@@ -47,9 +47,16 @@ implementations on tiny public cases and writes `score.json` with:
 - `public_geomean_runtime_ms`
 - `reference_public_geomean_runtime_ms`
 - `public_speedup_vs_reference`
+- `public_stress_correct`
+- `public_stress_case_count`
+- `public_stress_geomean_runtime_ms`
 - `backend`
 - `tolerance`
 - `hardware_fingerprint`
+
+The `public_stress_*` fields come from tiny edge cases for near-zero norms,
+manual RoPE phases, causal masking, and repeated KV keys. They are still local
+candidate telemetry, not official fixed-runner rankings.
 
 ## Submission Preflight
 
@@ -122,7 +129,7 @@ Local timings are not public frontier claims.
 - `challenge.json`: Benchforge-style challenge contract.
 - `solution/`: editable participant surface.
 - `harness/`: immutable public reference and scoring code.
-- `cases/public_smoke/`: tiny public tensor cases.
+- `cases/public_smoke/`: tiny public tensor cases and stress cases.
 - `verifier/replay-contract.json`: public fixed-runner, promotion, and
   ingestion contract. It does not include hidden cases.
 - `verifier/task-spec.json`: public primitive and hidden replay-axis
