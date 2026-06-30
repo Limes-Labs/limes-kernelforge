@@ -33,12 +33,15 @@ class ContractTests(unittest.TestCase):
         self.assertIn("scripts/validate_replay_result.py", challenge["commands"]["validateReplayResult"])
         self.assertIn("validateRunnerManifest", challenge["commands"])
         self.assertIn("scripts/validate_runner_manifest.py", challenge["commands"]["validateRunnerManifest"])
+        self.assertIn("validateBaselineRecord", challenge["commands"])
+        self.assertIn("scripts/validate_baseline_record.py", challenge["commands"]["validateBaselineRecord"])
         self.assertEqual(verifier["challenge"], challenge["id"])
         self.assertEqual(verifier["task_spec_path"], "verifier/task-spec.json")
         self.assertEqual(
             verifier["trusted_runner_manifest_path"],
             "verifier/trusted-runner-manifest.example.json",
         )
+        self.assertEqual(verifier["baseline_record_path"], "verifier/baseline-record.example.json")
         self.assertEqual(verifier["official_primary_metric"], challenge["score"]["primaryMetric"])
         self.assertEqual(verifier["protected_surface"]["editable_paths"], challenge["editablePaths"])
         self.assertEqual(verifier["protected_surface"]["forbidden_paths"], challenge["forbiddenPaths"])

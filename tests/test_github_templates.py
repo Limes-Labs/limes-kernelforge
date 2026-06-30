@@ -29,6 +29,7 @@ class GitHubTemplateTests(unittest.TestCase):
             "templates/agent-notes.example.json",
             "templates/replay-result.example.json",
             "verifier/trusted-runner-manifest.example.json",
+            "verifier/baseline-record.example.json",
             "git diff --check",
         ]:
             with self.subTest(phrase=phrase):

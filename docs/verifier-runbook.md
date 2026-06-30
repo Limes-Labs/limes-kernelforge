@@ -22,13 +22,19 @@ runner must enforce before a KernelForge result can move beyond `candidate`.
 
 5. Mount trusted-only `hidden_cases/` with a private manifest and SHA-256
    hashes.
-6. Run hidden correctness first using the contract tolerance matrix.
-7. Time only correct submissions on the chosen fixed runner track.
-8. Aggregate median per case and geomean across cases.
-9. Run the invalid optimization audit and mini integration audit before
+6. Validate the locked reference baseline record for the same runner track:
+
+   ```bash
+   python3 scripts/validate_baseline_record.py --input path/to/baseline-record.json
+   ```
+
+7. Run hidden correctness first using the contract tolerance matrix.
+8. Time only correct submissions on the chosen fixed runner track.
+9. Aggregate median per case and geomean across cases.
+10. Run the invalid optimization audit and mini integration audit before
    promotion.
-10. Emit the official result fields listed in `verifier/replay-contract.json`.
-11. Validate the emitted replay payload:
+11. Emit the official result fields listed in `verifier/replay-contract.json`.
+12. Validate the emitted replay payload:
 
     ```bash
     python3 scripts/validate_replay_result.py --input path/to/replay-result.json
@@ -43,6 +49,7 @@ runner must enforce before a KernelForge result can move beyond `candidate`.
 - warmup, repetition, timer, memory-cap, and aggregation logs;
 - integration-audit result with the same code hash.
 - fixed-runner manifest JSON that passes `scripts/validate_runner_manifest.py`;
+- baseline record JSON that passes `scripts/validate_baseline_record.py`;
 - replay-result JSON that passes `scripts/validate_replay_result.py`.
 
 ## Anti-Probing Notes

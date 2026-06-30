@@ -13,6 +13,9 @@ class TemplateTests(unittest.TestCase):
             "templates/leaderboard-entry.json",
             "templates/agent-notes.example.json",
             "templates/replay-result.example.json",
+            "verifier/task-spec.json",
+            "verifier/trusted-runner-manifest.example.json",
+            "verifier/baseline-record.example.json",
             "cases/public_smoke/tiny_cases.json",
             "challenge.json",
         ]:

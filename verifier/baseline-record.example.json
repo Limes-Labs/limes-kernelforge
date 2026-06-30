@@ -1,0 +1,98 @@
+{
+  "schema_version": "0.1.0",
+  "challenge": "limes-kernelforge",
+  "source": "example-schema-only",
+  "disclaimer": "Schema example only. This is not an official baseline, fixed-runner replay, or promotion comparison record.",
+  "baseline_id": "example-kernelforge-cpu-reference",
+  "baseline_status": "example",
+  "runner_id": "example-kernelforge-runner",
+  "runner_track": "cpu-fixed",
+  "runner_manifest_hash": "example-runner-manifest-sha256",
+  "dependency_lock_digest": "example-container@sha256:0000",
+  "case_suite_hash": "example-hidden-case-suite-sha256",
+  "code_hash": "example-reference-code-sha256",
+  "primary_metric": "hidden_geomean_runtime_ms",
+  "direction": "minimize",
+  "tolerance": {
+    "float64": {
+      "abs": 1e-9,
+      "rel": 1e-9
+    },
+    "float32": {
+      "abs": 1e-5,
+      "rel": 1e-5
+    },
+    "float16": {
+      "abs": 0.005,
+      "rel": 0.005
+    },
+    "bfloat16": {
+      "abs": 0.008,
+      "rel": 0.008
+    }
+  },
+  "timing_policy": {
+    "warmup_iterations": "fixed per runner track",
+    "timed_repetitions": "fixed per runner track",
+    "aggregation": "median per case, geomean across cases",
+    "timer": "runner-native monotonic timer",
+    "memory_cap": "fixed per runner track",
+    "hardware_fingerprint_required": true
+  },
+  "aggregate": {
+    "reference_hidden_geomean_runtime_ms": 0.018,
+    "max_abs_error": 0.0,
+    "max_rel_error": 0.0,
+    "peak_memory_mb": 512,
+    "case_count": 4,
+    "correct": true
+  },
+  "case_results": [
+    {
+      "primitive": "rmsnorm",
+      "case_id": "example-hidden-rmsnorm",
+      "reference_runtime_ms": 0.018,
+      "max_abs_error": 0.0,
+      "max_rel_error": 0.0,
+      "correct": true
+    },
+    {
+      "primitive": "rope",
+      "case_id": "example-hidden-rope",
+      "reference_runtime_ms": 0.018,
+      "max_abs_error": 0.0,
+      "max_rel_error": 0.0,
+      "correct": true
+    },
+    {
+      "primitive": "attention",
+      "case_id": "example-hidden-attention",
+      "reference_runtime_ms": 0.018,
+      "max_abs_error": 0.0,
+      "max_rel_error": 0.0,
+      "correct": true
+    },
+    {
+      "primitive": "kv_decode",
+      "case_id": "example-hidden-kv-decode",
+      "reference_runtime_ms": 0.018,
+      "max_abs_error": 0.0,
+      "max_rel_error": 0.0,
+      "correct": true
+    }
+  ],
+  "replay_constraints": {
+    "clean_checkout": true,
+    "network_disabled": true,
+    "candidate_selection_uses_hidden_cases": false,
+    "hidden_shapes_disclosed_before_candidate_freeze": false,
+    "correctness_first": true
+  },
+  "promotion_use": {
+    "used_for_promoted_comparison": false,
+    "comparison_metric": "hidden_geomean_runtime_ms",
+    "baseline_metric": "reference_hidden_geomean_runtime_ms",
+    "direction": "minimize",
+    "runner_track": "cpu-fixed"
+  }
+}

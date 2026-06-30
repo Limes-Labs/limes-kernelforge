@@ -14,6 +14,9 @@
 - Fill trusted-only `hidden_cases/manifest.json` with shape-suite hashes before
   promotion opens.
 - Publish warmup, repetition, and median timing policy.
+- Freeze per-track baseline records based on `verifier/baseline-record.example.json`.
+- Require promoted comparisons to use baseline records that pass
+  `scripts/validate_baseline_record.py --input path/to/baseline-record.json`.
 - Define memory caps and measurement method.
 - Define native extension submission and sandbox rules.
 - Add invalid optimization pattern tests.

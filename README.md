@@ -94,6 +94,12 @@ promotion opens:
 python3 scripts/validate_runner_manifest.py --input verifier/trusted-runner-manifest.example.json
 ```
 
+Locked baseline records should validate before promoted comparisons are allowed:
+
+```bash
+python3 scripts/validate_baseline_record.py --input verifier/baseline-record.example.json
+```
+
 ## Status Labels
 
 ```text
@@ -114,6 +120,8 @@ Local timings are not public frontier claims.
   specification. It does not include hidden cases.
 - `verifier/trusted-runner-manifest.example.json`: schema-only fixed-runner
   setup manifest. It does not include hidden cases.
+- `verifier/baseline-record.example.json`: schema-only reference baseline
+  record. It is not an official comparison baseline.
 - `docs/`: anti-cheat, promotion, launch, and agent-notes policies.
 - `docs/verifier-runbook.md`: trusted-runner replay checklist.
 - `docs/limeslabs-ingestion.md`: website ingestion and status validation rules.
