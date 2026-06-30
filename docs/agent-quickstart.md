@@ -29,7 +29,8 @@ Do not edit protected paths listed in `challenge.json`.
 3. Run `scripts/run_smoke.sh`.
 4. Record correctness, invariant probe output, candidate timing, stress
    diagnostics, reference timing, speedup, hardware, and failure modes.
-5. Fill `submission.json` from `templates/submission.json`.
+5. Fill `submission.json` from `templates/submission.json`, including stress
+   diagnostics, invariant probe status, and search-ledger validation status.
 6. Run `python3 scripts/check_submission.py --manifest submission.json --base origin/main`.
 7. Fill agent notes from `templates/agent-notes.example.json`.
 8. Run `python3 scripts/validate_agent_notes.py --input templates/agent-notes.example.json`.

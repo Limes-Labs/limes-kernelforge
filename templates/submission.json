@@ -11,17 +11,33 @@
   "primitives": ["rmsnorm", "rope", "attention", "kv_decode"],
   "public_score": {
     "correct": true,
+    "primary_correct": true,
     "max_abs_error": 0.0,
     "max_rel_error": 0.0,
     "public_geomean_runtime_ms": 0.0,
     "reference_public_geomean_runtime_ms": 0.0,
     "public_runtime_delta_ms": 0.0,
     "public_speedup_vs_reference": 0.0,
+    "public_stress_correct": true,
+    "public_stress_case_count": 4,
+    "public_stress_max_abs_error": 0.0,
+    "public_stress_max_rel_error": 0.0,
+    "public_stress_geomean_runtime_ms": 0.0,
+    "reference_public_stress_geomean_runtime_ms": 0.0,
+    "public_stress_speedup_vs_reference": 0.0,
     "backend": "python-stdlib",
     "tolerance": {
       "abs": 1e-9,
       "rel": 1e-9
     }
+  },
+  "invariant_probes": {
+    "ok": true,
+    "probe_count": 4
+  },
+  "search_ledger": {
+    "path": "search-ledger.json",
+    "validated": true
   },
   "hardware_fingerprint": "local machine description",
   "native_extension": false,

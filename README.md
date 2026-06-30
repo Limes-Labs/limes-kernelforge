@@ -71,8 +71,10 @@ python3 scripts/check_submission.py --manifest submission.json --base origin/mai
 
 The guard rejects protected-file edits, files outside the editable surface,
 placeholder manifest values, missing public-score fields, unknown primitive
-names, and candidates that are not correct on public smoke. Passing preflight
-does not imply promotion; it only means the candidate is shaped for review.
+names, missing stress diagnostics, failed invariant probes, missing
+search-ledger validation, and candidates that are not correct on public smoke.
+Passing preflight does not imply promotion; it only means the candidate is
+shaped for review.
 
 ## Official Verifier Contract
 

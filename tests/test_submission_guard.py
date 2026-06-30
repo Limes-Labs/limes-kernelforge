@@ -24,6 +24,9 @@ def valid_manifest() -> dict:
     public_score.update(
         {
             "correct": True,
+            "primary_correct": True,
+            "public_stress_correct": True,
+            "public_stress_case_count": 4,
             "backend": "python-stdlib",
             "tolerance": {"abs": 1e-9, "rel": 1e-9},
         }
@@ -35,6 +38,8 @@ def valid_manifest() -> dict:
         "changed_files": ["solution/rmsnorm.py"],
         "primitives": ["rmsnorm"],
         "public_score": public_score,
+        "invariant_probes": {"ok": True, "probe_count": 4},
+        "search_ledger": {"path": "search-ledger.json", "validated": True},
         "hardware_fingerprint": "local test machine",
         "native_extension": False,
         "method_summary": "Use a clearer loop ordering for the RMSNorm public path.",
@@ -71,6 +76,24 @@ class SubmissionGuardTests(unittest.TestCase):
         manifest["primitives"] = ["rmsnorm", "made_up_kernel"]
         errors = validate_manifest(manifest, self.contract)
         self.assertTrue(any("unknown entries" in error for error in errors))
+
+    def test_public_stress_correct_must_be_true(self) -> None:
+        manifest = valid_manifest()
+        manifest["public_score"]["public_stress_correct"] = False
+        errors = validate_manifest(manifest, self.contract)
+        self.assertTrue(any("public_stress_correct" in error for error in errors))
+
+    def test_invariant_probe_failure_fails(self) -> None:
+        manifest = valid_manifest()
+        manifest["invariant_probes"]["ok"] = False
+        errors = validate_manifest(manifest, self.contract)
+        self.assertTrue(any("invariant_probes.ok" in error for error in errors))
+
+    def test_search_ledger_must_be_validated(self) -> None:
+        manifest = valid_manifest()
+        manifest["search_ledger"]["validated"] = False
+        errors = validate_manifest(manifest, self.contract)
+        self.assertTrue(any("search_ledger.validated" in error for error in errors))
 
     def test_checked_diff_must_match_manifest(self) -> None:
         errors = validate_submission(

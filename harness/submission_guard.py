@@ -10,15 +10,25 @@ ALLOWED_SUBMISSION_STATUSES = {"local", "candidate"}
 ALLOWED_PRIMITIVES = {"rmsnorm", "rope", "attention", "kv_decode"}
 REQUIRED_PUBLIC_SCORE_FIELDS = {
     "correct",
+    "primary_correct",
     "max_abs_error",
     "max_rel_error",
     "public_geomean_runtime_ms",
     "reference_public_geomean_runtime_ms",
     "public_runtime_delta_ms",
     "public_speedup_vs_reference",
+    "public_stress_correct",
+    "public_stress_case_count",
+    "public_stress_max_abs_error",
+    "public_stress_max_rel_error",
+    "public_stress_geomean_runtime_ms",
+    "reference_public_stress_geomean_runtime_ms",
+    "public_stress_speedup_vs_reference",
     "backend",
     "tolerance",
 }
+REQUIRED_INVARIANT_PROBE_FIELDS = {"ok", "probe_count"}
+REQUIRED_SEARCH_LEDGER_FIELDS = {"path", "validated"}
 
 
 def load_json(path: Path) -> dict[str, Any]:
@@ -85,6 +95,34 @@ def _looks_placeholder(value: Any) -> bool:
     return not stripped or stripped.startswith("<") or "Short description" in stripped
 
 
+def _validate_invariant_probes(value: Any) -> list[str]:
+    if not isinstance(value, dict):
+        return ["manifest invariant_probes must be an object"]
+    errors: list[str] = []
+    missing = sorted(REQUIRED_INVARIANT_PROBE_FIELDS.difference(value))
+    if missing:
+        errors.append("manifest invariant_probes missing fields: " + ", ".join(missing))
+    if value.get("ok") is not True:
+        errors.append("manifest invariant_probes.ok must be true")
+    if not isinstance(value.get("probe_count"), int) or value["probe_count"] < 4:
+        errors.append("manifest invariant_probes.probe_count must be an integer >= 4")
+    return errors
+
+
+def _validate_search_ledger(value: Any) -> list[str]:
+    if not isinstance(value, dict):
+        return ["manifest search_ledger must be an object"]
+    errors: list[str] = []
+    missing = sorted(REQUIRED_SEARCH_LEDGER_FIELDS.difference(value))
+    if missing:
+        errors.append("manifest search_ledger missing fields: " + ", ".join(missing))
+    if _looks_placeholder(value.get("path")):
+        errors.append("manifest search_ledger.path must be concrete")
+    if value.get("validated") is not True:
+        errors.append("manifest search_ledger.validated must be true")
+    return errors
+
+
 def validate_manifest(manifest: dict[str, Any], contract: dict[str, Any]) -> list[str]:
     errors: list[str] = []
     if manifest.get("challenge") != contract.get("id"):
@@ -118,6 +156,18 @@ def validate_manifest(manifest: dict[str, Any], contract: dict[str, Any]) -> lis
             errors.append("manifest public_score missing fields: " + ", ".join(missing))
         if public_score.get("correct") is not True:
             errors.append("manifest public_score.correct must be true for candidate replay")
+        if public_score.get("primary_correct") is not True:
+            errors.append("manifest public_score.primary_correct must be true for candidate replay")
+        if public_score.get("public_stress_correct") is not True:
+            errors.append("manifest public_score.public_stress_correct must be true for candidate replay")
+        if "public_stress_case_count" in public_score and (
+            not isinstance(public_score["public_stress_case_count"], int)
+            or public_score["public_stress_case_count"] < 4
+        ):
+            errors.append("manifest public_score.public_stress_case_count must be an integer >= 4")
+
+    errors.extend(_validate_invariant_probes(manifest.get("invariant_probes")))
+    errors.extend(_validate_search_ledger(manifest.get("search_ledger")))
 
     if _looks_placeholder(manifest.get("hardware_fingerprint")):
         errors.append("manifest hardware_fingerprint must describe the local machine")
