@@ -22,6 +22,7 @@
 - [ ] `python3 -m json.tool verifier/task-spec.json`
 - [ ] `python3 scripts/validate_agent_notes.py --input templates/agent-notes.example.json`
 - [ ] `python3 scripts/validate_search_ledger.py --input templates/search-ledger.example.json`
+- [ ] `python3 scripts/validate_local_bundle.py --manifest submission.json --base origin/main`
 - [ ] `python3 scripts/validate_replay_result.py --input templates/replay-result.example.json`
 - [ ] `python3 scripts/validate_runner_manifest.py --input verifier/trusted-runner-manifest.example.json`
 - [ ] `python3 scripts/validate_baseline_record.py --input verifier/baseline-record.example.json`

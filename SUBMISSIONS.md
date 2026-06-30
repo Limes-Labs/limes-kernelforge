@@ -29,13 +29,17 @@ Before asking for fixed-runner replay, copy `templates/submission.json` to
 
 ```bash
 python3 scripts/check_submission.py --manifest submission.json --base origin/main
+python3 scripts/validate_local_bundle.py --manifest submission.json --base origin/main
 ```
 
 The guard checks that the git diff only touches editable files, that
 `changed_files` exactly matches the checked diff, that public correctness is
 true, and that primitive names and public-score fields are replay-ready. It is
 an anti-footgun screen, not a hidden-shape verifier and not a promotion
-decision.
+decision. The local bundle validator reruns public correctness checks and
+invariant probes, then checks the manifest and search ledger against those fresh
+local outputs. It deliberately skips timing comparisons because timing becomes
+official only on fixed runners.
 
 Agent-run submissions should also include validated notes:
 

@@ -33,6 +33,8 @@ class ContractTests(unittest.TestCase):
         self.assertIn("scripts/validate_agent_notes.py", challenge["commands"]["validateAgentNotes"])
         self.assertIn("validateSearchLedger", challenge["commands"])
         self.assertIn("scripts/validate_search_ledger.py", challenge["commands"]["validateSearchLedger"])
+        self.assertIn("validateLocalBundle", challenge["commands"])
+        self.assertIn("scripts/validate_local_bundle.py", challenge["commands"]["validateLocalBundle"])
         self.assertIn("validateReplayResult", challenge["commands"])
         self.assertIn("scripts/validate_replay_result.py", challenge["commands"]["validateReplayResult"])
         self.assertIn("validateRunnerManifest", challenge["commands"])

@@ -32,6 +32,7 @@
     "probe": "python3 scripts/run_invariant_probes.py",
     "verify": "python3 harness/verify_hidden.py --public-contract-only",
     "audit": "python3 scripts/check_submission.py --manifest submission.json --base origin/main",
+    "validateLocalBundle": "python3 scripts/validate_local_bundle.py --manifest submission.json --base origin/main",
     "validateLeaderboard": "python3 scripts/validate_leaderboard.py --input examples/limeslabs/leaderboard.example.json",
     "validateAgentNotes": "python3 scripts/validate_agent_notes.py --input templates/agent-notes.example.json",
     "validateSearchLedger": "python3 scripts/validate_search_ledger.py --input templates/search-ledger.example.json",

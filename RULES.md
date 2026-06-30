@@ -32,6 +32,7 @@ review:
 
 ```bash
 python3 scripts/check_submission.py --manifest submission.json --base origin/main
+python3 scripts/validate_local_bundle.py --manifest submission.json --base origin/main
 ```
 
 ## Prohibited Behavior
