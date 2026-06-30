@@ -4,6 +4,7 @@
   "hidden_verifier_ready": false,
   "mode": "public-contract-only",
   "task_spec_path": "verifier/task-spec.json",
+  "trusted_runner_manifest_path": "verifier/trusted-runner-manifest.example.json",
   "official_primary_metric": "hidden_geomean_runtime_ms",
   "public_metric": "public_geomean_runtime_ms",
   "score_direction": "minimize",

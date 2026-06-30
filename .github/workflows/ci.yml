@@ -28,6 +28,7 @@ jobs:
           python3 -m json.tool examples/limeslabs/leaderboard.example.json >/tmp/limeslabs-leaderboard.example.json
           python3 -m json.tool verifier/replay-contract.json >/tmp/replay-contract.json
           python3 -m json.tool verifier/task-spec.json >/tmp/task-spec.json
+          python3 -m json.tool verifier/trusted-runner-manifest.example.json >/tmp/trusted-runner-manifest.example.json
       - name: Validate submission guard entrypoint
         run: python3 scripts/check_submission.py --help >/tmp/check-submission-help.txt
       - name: Validate limeslabs fixture ingestion
@@ -36,5 +37,7 @@ jobs:
         run: python3 scripts/validate_agent_notes.py --input templates/agent-notes.example.json
       - name: Validate replay-result example
         run: python3 scripts/validate_replay_result.py --input templates/replay-result.example.json
+      - name: Validate runner manifest example
+        run: python3 scripts/validate_runner_manifest.py --input verifier/trusted-runner-manifest.example.json
       - name: Check whitespace
         run: git diff --check

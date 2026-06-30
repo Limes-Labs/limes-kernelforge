@@ -87,6 +87,13 @@ promotion:
 python3 scripts/validate_replay_result.py --input templates/replay-result.example.json
 ```
 
+Trusted runner setups should also validate their public manifest shape before
+promotion opens:
+
+```bash
+python3 scripts/validate_runner_manifest.py --input verifier/trusted-runner-manifest.example.json
+```
+
 ## Status Labels
 
 ```text
@@ -105,6 +112,8 @@ Local timings are not public frontier claims.
   ingestion contract. It does not include hidden cases.
 - `verifier/task-spec.json`: public primitive and hidden replay-axis
   specification. It does not include hidden cases.
+- `verifier/trusted-runner-manifest.example.json`: schema-only fixed-runner
+  setup manifest. It does not include hidden cases.
 - `docs/`: anti-cheat, promotion, launch, and agent-notes policies.
 - `docs/verifier-runbook.md`: trusted-runner replay checklist.
 - `docs/limeslabs-ingestion.md`: website ingestion and status validation rules.

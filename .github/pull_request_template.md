@@ -20,6 +20,7 @@
 - [ ] `python3 -m json.tool verifier/task-spec.json`
 - [ ] `python3 scripts/validate_agent_notes.py --input templates/agent-notes.example.json`
 - [ ] `python3 scripts/validate_replay_result.py --input templates/replay-result.example.json`
+- [ ] `python3 scripts/validate_runner_manifest.py --input verifier/trusted-runner-manifest.example.json`
 - [ ] `git diff --check`
 
 ## Research Notes

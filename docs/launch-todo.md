@@ -5,6 +5,10 @@
 - Define CPU, Apple Silicon/Metal, CUDA, and ROCm runner configurations.
 - Keep `verifier/replay-contract.json` synchronized with fixed runner
   definitions.
+- Freeze real fixed-runner manifests based on
+  `verifier/trusted-runner-manifest.example.json`.
+- Require fixed-runner setup manifests to pass
+  `scripts/validate_runner_manifest.py --input path/to/trusted-runner-manifest.json`.
 - Require fixed-runner outputs to pass
   `scripts/validate_replay_result.py --input path/to/replay-result.json`.
 - Fill trusted-only `hidden_cases/manifest.json` with shape-suite hashes before

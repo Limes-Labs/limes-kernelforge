@@ -1,0 +1,93 @@
+{
+  "schema_version": "0.1.0",
+  "challenge": "limes-kernelforge",
+  "source": "example-schema-only",
+  "disclaimer": "Schema example only. This is not an official runner, hidden-case manifest, or replay approval.",
+  "runner_id": "example-kernelforge-runner",
+  "runner_status": "example",
+  "clean_checkout_required": true,
+  "network_disabled": true,
+  "dependency_lock": {
+    "kind": "container",
+    "digest": "example-container@sha256:0000",
+    "python": "3.11.x",
+    "packages": [
+      "example-lockfile-entry"
+    ]
+  },
+  "fixed_runner_tracks": [
+    {
+      "id": "cpu-fixed",
+      "status": "example",
+      "backend": "CPU stdlib or native CPU extension",
+      "hardware_fingerprint_required": true,
+      "memory_cap": "fixed per runner track"
+    },
+    {
+      "id": "apple-metal-fixed",
+      "status": "example",
+      "backend": "Apple Silicon Metal or Accelerate-compatible path",
+      "hardware_fingerprint_required": true,
+      "memory_cap": "fixed per runner track"
+    },
+    {
+      "id": "cuda-fixed",
+      "status": "example",
+      "backend": "CUDA or Triton",
+      "hardware_fingerprint_required": true,
+      "memory_cap": "fixed per runner track"
+    },
+    {
+      "id": "rocm-fixed",
+      "status": "example",
+      "backend": "ROCm or HIP",
+      "hardware_fingerprint_required": true,
+      "memory_cap": "fixed per runner track"
+    }
+  ],
+  "hidden_case_manifest": {
+    "path": "hidden_cases/manifest.json",
+    "hash_algorithm": "sha256",
+    "hidden_cases_bundled": false,
+    "case_suites": [
+      {
+        "id": "hidden-correctness-suite",
+        "purpose": "hidden-correctness",
+        "hash": "example-hidden-correctness-suite-sha256"
+      },
+      {
+        "id": "hidden-timing-suite",
+        "purpose": "fixed-runner-timing",
+        "hash": "example-hidden-timing-suite-sha256"
+      },
+      {
+        "id": "integration-audit-suite",
+        "purpose": "mini-inference-or-training-loop",
+        "hash": "example-integration-audit-suite-sha256"
+      }
+    ]
+  },
+  "timing_policy": {
+    "warmup_iterations": "fixed per runner track",
+    "timed_repetitions": "fixed per runner track",
+    "aggregation": "median per case, geomean across cases",
+    "timer": "runner-native monotonic timer",
+    "memory_cap": "fixed per runner track",
+    "hardware_fingerprint_required": true
+  },
+  "replay_outputs": {
+    "replay_result_json": "path/to/replay-result.json",
+    "result_card_markdown": "path/to/result-card.md",
+    "runner_log": "path/to/runner-log.jsonl",
+    "timing_log": "path/to/timing-log.jsonl",
+    "case_suite_hash": "recorded per replay",
+    "code_hash": "recorded per replay"
+  },
+  "anti_cheat": {
+    "correctness_first": true,
+    "candidate_selection_uses_hidden_cases": false,
+    "hidden_shapes_disclosed_before_candidate_freeze": false,
+    "network_disabled_during_scoring": true,
+    "forbidden_paths_checked": true
+  }
+}

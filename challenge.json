@@ -33,7 +33,8 @@
     "audit": "python3 scripts/check_submission.py --manifest submission.json --base origin/main",
     "validateLeaderboard": "python3 scripts/validate_leaderboard.py --input examples/limeslabs/leaderboard.example.json",
     "validateAgentNotes": "python3 scripts/validate_agent_notes.py --input templates/agent-notes.example.json",
-    "validateReplayResult": "python3 scripts/validate_replay_result.py --input templates/replay-result.example.json"
+    "validateReplayResult": "python3 scripts/validate_replay_result.py --input templates/replay-result.example.json",
+    "validateRunnerManifest": "python3 scripts/validate_runner_manifest.py --input verifier/trusted-runner-manifest.example.json"
   },
   "statusModel": [
     "local",
