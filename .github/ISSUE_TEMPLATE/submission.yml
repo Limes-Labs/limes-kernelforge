@@ -75,6 +75,13 @@ body:
     validations:
       required: true
   - type: textarea
+    id: promotion_packet
+    attributes:
+      label: Promotion packet evidence
+      description: For promoted or later requests, paste `python3 scripts/validate_promotion_packet.py --input promotion-packet.json` output. For candidate-only issues, write `candidate only`.
+    validations:
+      required: true
+  - type: textarea
     id: numerical_risk
     attributes:
       label: Numerical and shape risks

@@ -11,6 +11,9 @@
   `scripts/validate_runner_manifest.py --input path/to/trusted-runner-manifest.json`.
 - Require fixed-runner outputs to pass
   `scripts/validate_replay_result.py --input path/to/replay-result.json`.
+- Require promotion packets to pass
+  `scripts/validate_promotion_packet.py --input path/to/promotion-packet.json`
+  before any `promoted`, `replicated`, or `scaled` website status.
 - Fill trusted-only `hidden_cases/manifest.json` with shape-suite hashes before
   promotion opens.
 - Publish warmup, repetition, and median timing policy.
@@ -25,3 +28,5 @@
 - Add mini integration audit.
 - Wire `templates/leaderboard-entry.json` into `limeslabs.eu`.
 - Reuse `scripts/validate_leaderboard.py` in the `limeslabs.eu` ingestion job.
+- Reuse `scripts/validate_promotion_packet.py` in the `limeslabs.eu` promotion
+  ingestion job.

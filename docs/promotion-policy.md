@@ -14,3 +14,12 @@ local -> candidate -> verified -> promoted -> replicated -> scaled
 - `scaled`: larger shape or integration audit preserves the improvement.
 
 Public smoke timings never receive official rank by themselves.
+
+Promotion requests must include a validated promotion packet. The packet binds
+the submission manifest, agent notes, trusted-runner manifest, locked reference
+baseline, replay result, result card, leaderboard entry, fixed runner track,
+correctness evidence, tolerance evidence, and audit gates. A fast public smoke
+number or a replay result alone is not enough for `promoted` or later status.
+
+Schema-only examples may validate, but they must keep `promotion_ready` false
+and must state that they are not official promotion packets.

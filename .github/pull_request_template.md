@@ -17,11 +17,13 @@
 - [ ] `python3 -m json.tool challenge.json`
 - [ ] `python3 -m json.tool templates/submission.json`
 - [ ] `python3 -m json.tool templates/leaderboard-entry.json`
+- [ ] `python3 -m json.tool templates/promotion-packet.example.json`
 - [ ] `python3 -m json.tool verifier/task-spec.json`
 - [ ] `python3 scripts/validate_agent_notes.py --input templates/agent-notes.example.json`
 - [ ] `python3 scripts/validate_replay_result.py --input templates/replay-result.example.json`
 - [ ] `python3 scripts/validate_runner_manifest.py --input verifier/trusted-runner-manifest.example.json`
 - [ ] `python3 scripts/validate_baseline_record.py --input verifier/baseline-record.example.json`
+- [ ] `python3 scripts/validate_promotion_packet.py --input templates/promotion-packet.example.json`
 - [ ] `git diff --check`
 
 ## Research Notes

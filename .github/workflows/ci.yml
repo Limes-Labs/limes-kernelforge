@@ -25,6 +25,7 @@ jobs:
           python3 -m json.tool templates/leaderboard-entry.json >/tmp/leaderboard-entry.json
           python3 -m json.tool templates/agent-notes.example.json >/tmp/agent-notes.example.json
           python3 -m json.tool templates/replay-result.example.json >/tmp/replay-result.example.json
+          python3 -m json.tool templates/promotion-packet.example.json >/tmp/promotion-packet.example.json
           python3 -m json.tool examples/limeslabs/leaderboard.example.json >/tmp/limeslabs-leaderboard.example.json
           python3 -m json.tool verifier/replay-contract.json >/tmp/replay-contract.json
           python3 -m json.tool verifier/task-spec.json >/tmp/task-spec.json
@@ -42,5 +43,7 @@ jobs:
         run: python3 scripts/validate_runner_manifest.py --input verifier/trusted-runner-manifest.example.json
       - name: Validate baseline record example
         run: python3 scripts/validate_baseline_record.py --input verifier/baseline-record.example.json
+      - name: Validate promotion packet example
+        run: python3 scripts/validate_promotion_packet.py --input templates/promotion-packet.example.json
       - name: Check whitespace
         run: git diff --check

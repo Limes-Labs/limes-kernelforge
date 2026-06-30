@@ -100,6 +100,15 @@ Locked baseline records should validate before promoted comparisons are allowed:
 python3 scripts/validate_baseline_record.py --input verifier/baseline-record.example.json
 ```
 
+Promotion packets bind correctness, fixed-runner timing, runner manifest,
+baseline record, replay output, agent notes, result card, and leaderboard entry
+into one machine-checkable evidence bundle before any public frontier status is
+requested:
+
+```bash
+python3 scripts/validate_promotion_packet.py --input templates/promotion-packet.example.json
+```
+
 ## Status Labels
 
 ```text
@@ -130,6 +139,8 @@ Local timings are not public frontier claims.
 - `templates/agent-notes.example.json`: machine-checkable agent trial notes.
 - `templates/replay-result.example.json`: schema-only trusted replay result
   packet.
+- `templates/promotion-packet.example.json`: schema-only promotion evidence
+  bundle. It is not an official promotion packet.
 - `examples/limeslabs/`: candidate-only fixtures for website development.
 - `tests/`: stdlib tests for contract and scorer behavior.
 

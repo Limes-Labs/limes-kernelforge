@@ -1,0 +1,90 @@
+{
+  "schema_version": "0.1.0",
+  "challenge": "limes-kernelforge",
+  "source": "example-schema-only",
+  "disclaimer": "Schema example only. This is not an official promotion packet, frontier entry, or replay approval.",
+  "packet_id": "example-kernelforge-promotion-packet",
+  "requested_status": "verified",
+  "submission_id": "example-public-smoke-baseline",
+  "submission_commit": "example-submission-commit",
+  "promotion_ready": false,
+  "official_metric": "hidden_geomean_runtime_ms",
+  "direction": "minimize",
+  "score": 0.012,
+  "baseline_score": 0.018,
+  "runner_track": "cpu-fixed",
+  "artifacts": {
+    "submission_manifest": {
+      "path": "submission.json",
+      "sha256": "example-submission-manifest-sha256",
+      "validated": true
+    },
+    "agent_notes": {
+      "path": "agent-notes.json",
+      "sha256": "example-agent-notes-sha256",
+      "validated": true
+    },
+    "runner_manifest": {
+      "path": "verifier/trusted-runner-manifest.example.json",
+      "sha256": "example-runner-manifest-sha256",
+      "validated": true
+    },
+    "baseline_record": {
+      "path": "verifier/baseline-record.example.json",
+      "sha256": "example-baseline-record-sha256",
+      "validated": true
+    },
+    "replay_result": {
+      "path": "templates/replay-result.example.json",
+      "sha256": "example-replay-result-sha256",
+      "validated": true
+    },
+    "result_card": {
+      "path": "templates/result-card.md",
+      "sha256": "example-result-card-sha256",
+      "validated": true
+    },
+    "leaderboard_entry": {
+      "path": "templates/leaderboard-entry.json",
+      "sha256": "example-leaderboard-entry-sha256",
+      "validated": true
+    }
+  },
+  "evidence": {
+    "submission_preflight_passed": true,
+    "agent_notes_validated": true,
+    "runner_manifest_validated": true,
+    "baseline_record_validated": true,
+    "replay_result_validated": true,
+    "leaderboard_entry_validated": true,
+    "clean_checkout": true,
+    "network_disabled": true,
+    "no_forbidden_paths": true,
+    "hidden_shapes_not_disclosed": true,
+    "public_timings_candidate_only": true,
+    "correctness_passed": true,
+    "numerical_tolerance_passed": true,
+    "fixed_runner_track_present": true,
+    "memory_cap_respected": false,
+    "invalid_optimization_audit": false,
+    "result_card_present": false,
+    "integration_audit": false,
+    "scaled_audit": false
+  },
+  "gates": {
+    "passed": [
+      "schema validation"
+    ],
+    "failed": [
+      "not an official trusted replay output"
+    ],
+    "blocked": [
+      "runner is example-only"
+    ]
+  },
+  "review": {
+    "reviewer": "example-reviewer",
+    "decision": "example",
+    "notes": "Example packet only; not eligible for public fixed-runner ranking."
+  }
+}

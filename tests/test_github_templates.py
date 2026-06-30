@@ -16,6 +16,7 @@ class GitHubTemplateTests(unittest.TestCase):
             "scripts/check_submission.py",
             "scripts/validate_agent_notes.py",
             "scripts/validate_replay_result.py",
+            "scripts/validate_promotion_packet.py",
             "candidate only",
         ]:
             with self.subTest(phrase=phrase):
@@ -28,6 +29,7 @@ class GitHubTemplateTests(unittest.TestCase):
             "verifier/task-spec.json",
             "templates/agent-notes.example.json",
             "templates/replay-result.example.json",
+            "templates/promotion-packet.example.json",
             "verifier/trusted-runner-manifest.example.json",
             "verifier/baseline-record.example.json",
             "git diff --check",

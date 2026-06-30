@@ -35,6 +35,8 @@ class ContractTests(unittest.TestCase):
         self.assertIn("scripts/validate_runner_manifest.py", challenge["commands"]["validateRunnerManifest"])
         self.assertIn("validateBaselineRecord", challenge["commands"])
         self.assertIn("scripts/validate_baseline_record.py", challenge["commands"]["validateBaselineRecord"])
+        self.assertIn("validatePromotionPacket", challenge["commands"])
+        self.assertIn("scripts/validate_promotion_packet.py", challenge["commands"]["validatePromotionPacket"])
         self.assertEqual(verifier["challenge"], challenge["id"])
         self.assertEqual(verifier["task_spec_path"], "verifier/task-spec.json")
         self.assertEqual(

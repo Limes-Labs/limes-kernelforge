@@ -40,6 +40,14 @@ runner must enforce before a KernelForge result can move beyond `candidate`.
     python3 scripts/validate_replay_result.py --input path/to/replay-result.json
     ```
 
+13. Build and validate the promotion packet that binds correctness, tolerance,
+    fixed-runner timing, baseline record, runner manifest, agent notes, result
+    card, and leaderboard entry:
+
+    ```bash
+    python3 scripts/validate_promotion_packet.py --input path/to/promotion-packet.json
+    ```
+
 ## Required Trusted Artifacts
 
 - hidden case manifest and hashes;
@@ -51,6 +59,8 @@ runner must enforce before a KernelForge result can move beyond `candidate`.
 - fixed-runner manifest JSON that passes `scripts/validate_runner_manifest.py`;
 - baseline record JSON that passes `scripts/validate_baseline_record.py`;
 - replay-result JSON that passes `scripts/validate_replay_result.py`.
+- promotion-packet JSON that passes
+  `scripts/validate_promotion_packet.py`.
 
 ## Anti-Probing Notes
 
