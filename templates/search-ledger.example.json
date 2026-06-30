@@ -1,0 +1,86 @@
+{
+  "schema_version": "0.1.0",
+  "challenge": "limes-kernelforge",
+  "submission_id": "example-public-smoke-reference",
+  "ledger_id": "example-kernelforge-search-ledger",
+  "source": "example-schema-only",
+  "search_budget": {
+    "agent_runs": 2,
+    "wall_clock_minutes": 22.0,
+    "local_hardware": "example laptop CPU",
+    "max_attempts_planned": 4,
+    "actual_attempts": 2,
+    "network_used": false,
+    "native_extension_used": false,
+    "fixed_runner_feedback_used": false
+  },
+  "candidate_selection": {
+    "selected_attempt_id": "attempt-002",
+    "selection_metric": "public_geomean_runtime_ms",
+    "direction": "minimize",
+    "baseline_score": 0.0019151873035416866,
+    "selected_score": 0.0017879223109138957,
+    "selection_reason": "Selected as a correctness-clean example candidate shape without claiming fixed-runner speed.",
+    "stopped_reason": "Example ledger stops after one rejected numerical-risk attempt and one selected reference-shaped attempt.",
+    "selected_after_seeing_hidden_cases": false
+  },
+  "attempts": [
+    {
+      "id": "attempt-001",
+      "status": "rejected",
+      "primitive": "rmsnorm",
+      "hypothesis": "Removing epsilon might improve runtime.",
+      "changed_files": ["solution/rmsnorm.py"],
+      "command": "scripts/run_smoke.sh",
+      "correct": true,
+      "public_geomean_runtime_ms": 0.0017,
+      "reference_public_geomean_runtime_ms": 0.0019,
+      "public_stress_correct": false,
+      "invariant_probes_passed": false,
+      "backend": "python-stdlib",
+      "result_summary": "Rejected because a formula shortcut is numerically unsafe despite a tiny public timing movement.",
+      "failure_modes": [
+        "Breaks near-zero rows.",
+        "Likely fails dtype-specific hidden tolerance."
+      ]
+    },
+    {
+      "id": "attempt-002",
+      "status": "selected",
+      "primitive": "rmsnorm",
+      "hypothesis": "Use the reference-shaped starter implementation as the first candidate fixture.",
+      "changed_files": [
+        "solution/rmsnorm.py",
+        "solution/rope.py",
+        "solution/attention.py",
+        "solution/kv_decode.py"
+      ],
+      "command": "scripts/run_smoke.sh",
+      "correct": true,
+      "public_geomean_runtime_ms": 0.0017879223109138957,
+      "reference_public_geomean_runtime_ms": 0.0019151873035416866,
+      "public_stress_correct": true,
+      "invariant_probes_passed": true,
+      "backend": "python-stdlib",
+      "result_summary": "Selected only as a candidate-shaped example with correctness intact.",
+      "failure_modes": [
+        "No hidden shapes have run.",
+        "No fixed runner track has replayed timing."
+      ]
+    }
+  ],
+  "negative_or_mixed_findings": [
+    "Tiny public timing wins are not enough for promotion.",
+    "Numerically risky approximations must be rejected even when local timing improves."
+  ],
+  "public_data_boundary": {
+    "used_hidden_cases": false,
+    "used_private_runner_feedback": false,
+    "public_timings_candidate_only": true
+  },
+  "replay_request": {
+    "requested": false,
+    "runner_track": "none",
+    "rationale": "Example ledger only; real fixed-runner replay requests must name the requested track."
+  }
+}

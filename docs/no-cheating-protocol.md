@@ -28,5 +28,9 @@ Promote only if:
 - integration audit does not regress;
 - replay results are recorded with hardware and software fingerprints.
 
+Search-ledger packets should validate with
+`python3 scripts/validate_search_ledger.py --input path/to/search-ledger.json`
+before fixed-runner replay is requested.
+
 Mark as `negative` or `mixed` when a kernel wins a public microcase but fails
 hidden shapes, tolerance, or integration audit.

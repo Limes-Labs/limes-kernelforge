@@ -35,6 +35,7 @@ Use Python 3.10 or newer. No external packages are required.
 ```bash
 scripts/run_smoke.sh
 python3 scripts/run_invariant_probes.py
+python3 scripts/validate_search_ledger.py --input templates/search-ledger.example.json
 python3 -m unittest discover -s tests
 python3 -m json.tool challenge.json
 ```
@@ -147,6 +148,8 @@ Local timings are not public frontier claims.
 - `docs/agent-quickstart.md`: short instructions for coding agents.
 - `templates/`: submission, result-card, and leaderboard-entry schemas.
 - `templates/agent-notes.example.json`: machine-checkable agent trial notes.
+- `templates/search-ledger.example.json`: machine-checkable search budget,
+  attempt, stopping, and selection accounting.
 - `templates/replay-result.example.json`: schema-only trusted replay result
   packet.
 - `templates/promotion-packet.example.json`: schema-only promotion evidence

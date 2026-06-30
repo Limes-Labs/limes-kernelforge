@@ -68,6 +68,13 @@ body:
     validations:
       required: true
   - type: textarea
+    id: search_ledger
+    attributes:
+      label: Search ledger
+      description: Paste `python3 scripts/validate_search_ledger.py --input search-ledger.json` output, or explain why there was only one manual attempt.
+    validations:
+      required: true
+  - type: textarea
     id: replay_result
     attributes:
       label: Trusted replay evidence
