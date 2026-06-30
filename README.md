@@ -34,6 +34,7 @@ Use Python 3.10 or newer. No external packages are required.
 
 ```bash
 scripts/run_smoke.sh
+python3 scripts/run_invariant_probes.py
 python3 -m unittest discover -s tests
 python3 -m json.tool challenge.json
 ```
@@ -129,6 +130,8 @@ Local timings are not public frontier claims.
 - `challenge.json`: Benchforge-style challenge contract.
 - `solution/`: editable participant surface.
 - `harness/`: immutable public reference and scoring code.
+- `harness/invariant_probes.py`: candidate-only public probes for finite
+  output, mutation safety, causal prefix invariance, and KV alias handling.
 - `cases/public_smoke/`: tiny public tensor cases and stress cases.
 - `verifier/replay-contract.json`: public fixed-runner, promotion, and
   ingestion contract. It does not include hidden cases.

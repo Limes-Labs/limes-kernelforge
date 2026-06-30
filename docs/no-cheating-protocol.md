@@ -13,6 +13,8 @@
 
 - Public cases and public stress cases are for interface validation and
   falsification diagnostics.
+- Public invariant probes are deterministic interface checks only; passing them
+  is not fixed-runner evidence.
 - Hidden cases and fixed-runner results may not influence candidate selection.
 - Official scoring runs with no network access.
 
