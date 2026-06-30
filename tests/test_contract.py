@@ -27,6 +27,8 @@ class ContractTests(unittest.TestCase):
         self.assertIn("scripts/check_submission.py", challenge["commands"]["audit"])
         self.assertIn("probe", challenge["commands"])
         self.assertIn("scripts/run_invariant_probes.py", challenge["commands"]["probe"])
+        self.assertIn("publicAudit", challenge["commands"])
+        self.assertIn("scripts/run_public_audit.py", challenge["commands"]["publicAudit"])
         self.assertIn("validateLeaderboard", challenge["commands"])
         self.assertIn("scripts/validate_leaderboard.py", challenge["commands"]["validateLeaderboard"])
         self.assertIn("validateAgentNotes", challenge["commands"])

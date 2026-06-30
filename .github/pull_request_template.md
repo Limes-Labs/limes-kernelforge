@@ -13,6 +13,7 @@
 ## Verification
 
 - [ ] `scripts/run_smoke.sh`
+- [ ] `python3 scripts/run_public_audit.py`
 - [ ] `python3 -m unittest discover -s tests`
 - [ ] `python3 -m json.tool challenge.json`
 - [ ] `python3 -m json.tool templates/submission.json`

@@ -15,6 +15,8 @@ jobs:
           python-version: "3.11"
       - name: Run public smoke
         run: scripts/run_smoke.sh
+      - name: Run public audit
+        run: python3 scripts/run_public_audit.py
       - name: Validate challenge contract
         run: python3 -m json.tool challenge.json >/tmp/challenge.json
       - name: Validate GitHub YAML

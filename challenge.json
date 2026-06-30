@@ -30,6 +30,7 @@
     "test": "python3 -m unittest discover -s tests",
     "score": "python3 harness/score.py --output score.json",
     "probe": "python3 scripts/run_invariant_probes.py",
+    "publicAudit": "python3 scripts/run_public_audit.py",
     "verify": "python3 harness/verify_hidden.py --public-contract-only",
     "audit": "python3 scripts/check_submission.py --manifest submission.json --base origin/main",
     "validateLocalBundle": "python3 scripts/validate_local_bundle.py --manifest submission.json --base origin/main",

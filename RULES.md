@@ -31,6 +31,7 @@ The local preflight guard can catch most accidental contract violations before
 review:
 
 ```bash
+python3 scripts/run_public_audit.py
 python3 scripts/check_submission.py --manifest submission.json --base origin/main
 python3 scripts/validate_local_bundle.py --manifest submission.json --base origin/main
 ```

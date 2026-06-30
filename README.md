@@ -35,6 +35,7 @@ Use Python 3.10 or newer. No external packages are required.
 ```bash
 scripts/run_smoke.sh
 python3 scripts/run_invariant_probes.py
+python3 scripts/run_public_audit.py
 python3 scripts/validate_search_ledger.py --input templates/search-ledger.example.json
 python3 -m unittest discover -s tests
 python3 -m json.tool challenge.json
@@ -139,6 +140,8 @@ Local timings are not public frontier claims.
 - `harness/`: immutable public reference and scoring code.
 - `harness/invariant_probes.py`: candidate-only public probes for finite
   output, mutation safety, causal prefix invariance, and KV alias handling.
+- `harness/public_audit.py`: candidate-only static boundary and metamorphic
+  audits for numerical shortcuts that public cases alone may miss.
 - `cases/public_smoke/`: tiny public tensor cases and stress cases.
 - `verifier/replay-contract.json`: public fixed-runner, promotion, and
   ingestion contract. It does not include hidden cases.

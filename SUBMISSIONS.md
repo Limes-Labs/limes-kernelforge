@@ -20,6 +20,7 @@ Every candidate should run:
 
 ```bash
 scripts/run_smoke.sh
+python3 scripts/run_public_audit.py
 ```
 
 ## Preflight Guard
