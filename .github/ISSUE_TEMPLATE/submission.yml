@@ -33,7 +33,9 @@ body:
       options:
         - label: I changed only `solution/rmsnorm.py`, `solution/rope.py`, `solution/attention.py`, `solution/kv_decode.py`, or `solution/native/README.md`.
           required: true
-        - label: I did not edit `harness/**`, `cases/**`, `hidden_cases/**`, `challenge.json`, `score.json`, or `leaderboard/**`.
+        - label: I did not edit `harness/**`, `cases/**`, `verifier/**`, `hidden_cases/**`, `challenge.json`, `score.json`, or `leaderboard/**`.
+          required: true
+        - label: I read `verifier/task-spec.json` and understand that public timings are candidate-only.
           required: true
   - type: textarea
     id: method
@@ -48,6 +50,28 @@ body:
       label: Public smoke output
       description: Paste the JSON output from `scripts/run_smoke.sh`.
       render: json
+    validations:
+      required: true
+  - type: textarea
+    id: preflight
+    attributes:
+      label: Preflight output
+      description: Paste output from `python3 scripts/check_submission.py --manifest submission.json --base origin/main`.
+      render: json
+    validations:
+      required: true
+  - type: textarea
+    id: agent_notes
+    attributes:
+      label: Agent notes or ablation log
+      description: Paste `python3 scripts/validate_agent_notes.py --input agent-notes.json` output, or explain why no agent-run notes were used.
+    validations:
+      required: true
+  - type: textarea
+    id: replay_result
+    attributes:
+      label: Trusted replay evidence
+      description: For verified or later requests, paste `python3 scripts/validate_replay_result.py --input replay-result.json` output. For candidate-only issues, write `candidate only`.
     validations:
       required: true
   - type: textarea

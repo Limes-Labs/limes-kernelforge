@@ -17,6 +17,8 @@ jobs:
         run: scripts/run_smoke.sh
       - name: Validate challenge contract
         run: python3 -m json.tool challenge.json >/tmp/challenge.json
+      - name: Validate GitHub YAML
+        run: ruby -e 'require "yaml"; Dir[".github/**/*.yml"].each { |path| YAML.load_file(path) }'
       - name: Validate JSON templates
         run: |
           python3 -m json.tool templates/submission.json >/tmp/submission.json

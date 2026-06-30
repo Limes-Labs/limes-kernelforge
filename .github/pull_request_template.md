@@ -6,8 +6,9 @@
 ## Challenge Surface
 
 - [ ] This PR changes only allowed participant paths, or it is clearly marked as maintainer-only harness/governance work.
-- [ ] No hidden cases, generated `score.json`, local cache, or leaderboard artifact is committed.
+- [ ] No hidden cases, protected verifier file, generated `score.json`, local cache, or leaderboard artifact is committed.
 - [ ] Public smoke timings are described as local/candidate telemetry only.
+- [ ] Participant submissions did not edit `harness/**`, `cases/**`, `verifier/**`, `hidden_cases/**`, `challenge.json`, `score.json`, or `leaderboard/**`.
 
 ## Verification
 
@@ -16,6 +17,9 @@
 - [ ] `python3 -m json.tool challenge.json`
 - [ ] `python3 -m json.tool templates/submission.json`
 - [ ] `python3 -m json.tool templates/leaderboard-entry.json`
+- [ ] `python3 -m json.tool verifier/task-spec.json`
+- [ ] `python3 scripts/validate_agent_notes.py --input templates/agent-notes.example.json`
+- [ ] `python3 scripts/validate_replay_result.py --input templates/replay-result.example.json`
 - [ ] `git diff --check`
 
 ## Research Notes
