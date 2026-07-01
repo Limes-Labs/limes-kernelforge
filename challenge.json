@@ -35,6 +35,8 @@
     "checkPublicBaseline": "python3 scripts/check_public_baseline.py --input baselines/public-smoke-baseline.json",
     "buildSubmissionBundle": "python3 scripts/build_submission_bundle.py --output submission-bundle.json --base origin/main",
     "validateSubmissionBundle": "python3 scripts/validate_submission_bundle.py --input submission-bundle.json",
+    "buildCandidatePacket": "python3 scripts/build_candidate_packet.py --manifest submission.json --source-bundle submission-bundle.json --search-ledger search-ledger.json --agent-notes agent-notes.json --public-score score.json --invariant-probes invariant-probes.json --public-audit public-audit.json --output candidate-packet.json",
+    "validateCandidatePacket": "python3 scripts/validate_candidate_packet.py --input candidate-packet.json",
     "verify": "python3 harness/verify_hidden.py --public-contract-only",
     "audit": "python3 scripts/check_submission.py --manifest submission.json --base origin/main",
     "validateLocalBundle": "python3 scripts/validate_local_bundle.py --manifest submission.json --base origin/main",

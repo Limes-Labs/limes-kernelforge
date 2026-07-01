@@ -7,6 +7,9 @@ submission-bundle.json
 search-ledger.json
 agent-notes.json
 replay-result.json
+candidate-packet.json
+invariant-probes.json
+public-audit.json
 runs/
 hidden_cases/
 leaderboard/

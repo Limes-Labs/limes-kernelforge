@@ -43,8 +43,10 @@ Do not edit protected paths listed in `challenge.json`.
 13. Run `python3 scripts/validate_agent_notes.py --input templates/agent-notes.example.json`.
 14. Fill the search ledger from `templates/search-ledger.example.json`.
 15. Run `python3 scripts/validate_search_ledger.py --input templates/search-ledger.example.json`.
-16. Keep negative or mixed attempts in notes and the search ledger.
-17. Stop when a candidate has a clear method summary and replay rationale.
+16. Build `candidate-packet.json` after writing real local artifact files.
+17. Run `python3 scripts/validate_candidate_packet.py --input candidate-packet.json`.
+18. Keep negative or mixed attempts in notes and the search ledger.
+19. Stop when a candidate has a clear method summary and replay rationale.
 
 ## Done Criteria
 
@@ -56,6 +58,7 @@ Do not edit protected paths listed in `challenge.json`.
 - Submission preflight passes for the completed manifest.
 - Source bundle validation passes for the exact editable files selected for replay.
 - Local bundle validation passes against freshly rerun correctness checks, probes, source bundle, and search ledger.
+- Candidate packet validation passes for the completed local evidence bundle.
 - Agent notes validation passes for the completed notes packet.
 - Search ledger validation passes for the completed search packet.
 - Numerical risks and hidden-shape assumptions are documented.

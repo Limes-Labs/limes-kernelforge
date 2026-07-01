@@ -19,6 +19,7 @@
 - [ ] `python3 -m json.tool challenge.json`
 - [ ] `python3 -m json.tool templates/submission.json`
 - [ ] `python3 -m json.tool templates/submission-bundle.example.json`
+- [ ] `python3 -m json.tool templates/candidate-packet.example.json`
 - [ ] `python3 -m json.tool templates/leaderboard-entry.json`
 - [ ] `python3 -m json.tool templates/search-ledger.example.json`
 - [ ] `python3 -m json.tool templates/promotion-packet.example.json`
@@ -27,6 +28,7 @@
 - [ ] `python3 scripts/validate_search_ledger.py --input templates/search-ledger.example.json`
 - [ ] `python3 scripts/build_submission_bundle.py --changed-file solution/rmsnorm.py --output submission-bundle.json`
 - [ ] `python3 scripts/validate_submission_bundle.py --input submission-bundle.json`
+- [ ] `python3 scripts/validate_candidate_packet.py --input templates/candidate-packet.example.json --schema-only`
 - [ ] `python3 scripts/validate_local_bundle.py --manifest submission.json --base origin/main`
 - [ ] `python3 scripts/validate_replay_result.py --input templates/replay-result.example.json`
 - [ ] `python3 scripts/validate_runner_manifest.py --input verifier/trusted-runner-manifest.example.json`

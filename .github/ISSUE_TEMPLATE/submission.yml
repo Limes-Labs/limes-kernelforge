@@ -76,6 +76,14 @@ body:
     validations:
       required: true
   - type: textarea
+    id: candidate_packet
+    attributes:
+      label: Candidate packet
+      description: Paste `python3 scripts/validate_candidate_packet.py --input candidate-packet.json` output, or write `single manual attempt; no packet`.
+      render: json
+    validations:
+      required: true
+  - type: textarea
     id: search_ledger
     attributes:
       label: Search ledger

@@ -54,6 +54,18 @@ Agent-run submissions should also include validated notes:
 python3 scripts/validate_agent_notes.py --input agent-notes.json
 ```
 
+Agent-run or multi-attempt candidates should also include one local candidate
+packet that binds the completed manifest, source bundle, search ledger, agent
+notes, public score, invariant probes, and public audit:
+
+```bash
+python3 scripts/build_candidate_packet.py --manifest submission.json --source-bundle submission-bundle.json --search-ledger search-ledger.json --agent-notes agent-notes.json --public-score score.json --invariant-probes invariant-probes.json --public-audit public-audit.json --output candidate-packet.json
+python3 scripts/validate_candidate_packet.py --input candidate-packet.json
+```
+
+This packet is not a fixed-runner result. It is the local evidence bundle
+reviewers use before deciding whether a candidate deserves trusted replay.
+
 Requests for `verified`, `promoted`, `replicated`, or `scaled` status must also
 include trusted replay evidence that validates locally:
 

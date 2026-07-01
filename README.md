@@ -39,6 +39,7 @@ python3 scripts/run_public_audit.py
 python3 scripts/check_public_baseline.py --input baselines/public-smoke-baseline.json
 python3 scripts/build_submission_bundle.py --changed-file solution/rmsnorm.py --output submission-bundle.json
 python3 scripts/validate_submission_bundle.py --input submission-bundle.json
+python3 scripts/validate_candidate_packet.py --input templates/candidate-packet.example.json --schema-only
 python3 scripts/validate_search_ledger.py --input templates/search-ledger.example.json
 python3 -m unittest discover -s tests
 python3 -m json.tool challenge.json
@@ -88,6 +89,27 @@ probes and checks the filled manifest, source bundle, and search ledger against
 the fresh local outputs. It intentionally does not compare local timing fields,
 which remain candidate telemetry until fixed-runner replay. Passing preflight
 does not imply promotion; it only means the candidate is shaped for review.
+
+For agent or multi-attempt workflows, bundle the local evidence into one
+candidate packet before asking for human review:
+
+```bash
+python3 scripts/build_candidate_packet.py \
+  --manifest submission.json \
+  --source-bundle submission-bundle.json \
+  --search-ledger search-ledger.json \
+  --agent-notes agent-notes.json \
+  --public-score score.json \
+  --invariant-probes invariant-probes.json \
+  --public-audit public-audit.json \
+  --output candidate-packet.json
+python3 scripts/validate_candidate_packet.py --input candidate-packet.json
+```
+
+A local candidate packet is still candidate-only evidence. It records that the
+public artifacts are internally consistent; it does not replace hidden
+correctness checks, fixed-runner timing, memory-cap review, or integration
+audit.
 
 ## Official Verifier Contract
 
@@ -152,6 +174,8 @@ Local timings are not public frontier claims.
   audits for numerical shortcuts that public cases alone may miss.
 - `harness/source_bundle_guard.py`: hashes the editable source files selected
   for replay and rejects stale or protected-file bundles.
+- `harness/candidate_packet_guard.py`: validates local candidate evidence
+  packets before fixed-runner replay is requested.
 - `baselines/public-smoke-baseline.json`: stable public smoke contract used to
   detect accidental benchmark drift. It is not an official fixed-runner result.
 - `cases/public_smoke/`: tiny public tensor cases and stress cases.
@@ -173,6 +197,8 @@ Local timings are not public frontier claims.
   attempt, stopping, and selection accounting.
 - `templates/submission-bundle.example.json`: schema-only editable source
   bundle shape for replay packaging.
+- `templates/candidate-packet.example.json`: schema-only local candidate packet
+  shape for agents and reviewers.
 - `templates/replay-result.example.json`: schema-only trusted replay result
   packet.
 - `templates/promotion-packet.example.json`: schema-only promotion evidence

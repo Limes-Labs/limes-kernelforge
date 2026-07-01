@@ -1,0 +1,84 @@
+{
+  "schema_version": "0.1.0",
+  "challenge": "limes-kernelforge",
+  "packet_kind": "local-candidate-packet",
+  "source": "example-schema-only",
+  "disclaimer": "Schema example only. This is not a real candidate packet, replay result, or promotion request.",
+  "packet_id": "example-kernelforge-local-candidate",
+  "status": "candidate",
+  "commit": "example-commit",
+  "candidate_ready": false,
+  "artifacts": {
+    "submission_manifest": {
+      "path": "submission.json",
+      "sha256": "example-submission-sha256",
+      "validated": true
+    },
+    "source_bundle": {
+      "path": "submission-bundle.json",
+      "sha256": "example-source-bundle-sha256",
+      "validated": true
+    },
+    "search_ledger": {
+      "path": "search-ledger.json",
+      "sha256": "example-search-ledger-sha256",
+      "validated": true
+    },
+    "agent_notes": {
+      "path": "agent-notes.json",
+      "sha256": "example-agent-notes-sha256",
+      "validated": true
+    },
+    "public_score": {
+      "path": "score.json",
+      "sha256": "example-public-score-sha256",
+      "validated": true
+    },
+    "invariant_probes": {
+      "path": "invariant-probes.json",
+      "sha256": "example-invariant-probes-sha256",
+      "validated": true
+    },
+    "public_audit": {
+      "path": "public-audit.json",
+      "sha256": "example-public-audit-sha256",
+      "validated": true
+    }
+  },
+  "evidence": {
+    "submission_manifest_validated": true,
+    "source_bundle_validated": true,
+    "search_ledger_validated": true,
+    "agent_notes_validated": true,
+    "public_score_present": true,
+    "public_correctness_passed": true,
+    "public_stress_correctness_passed": true,
+    "invariant_probes_passed": true,
+    "public_audit_passed": true,
+    "local_bundle_validated": true,
+    "no_forbidden_paths": true,
+    "public_timings_candidate_only": true
+  },
+  "local_metrics": {
+    "correct": true,
+    "primary_correct": true,
+    "public_stress_correct": true,
+    "max_abs_error": 0.0,
+    "max_rel_error": 0.0,
+    "public_geomean_runtime_ms": 0.0018,
+    "reference_public_geomean_runtime_ms": 0.0019,
+    "public_speedup_vs_reference": 1.0,
+    "backend": "python-stdlib",
+    "source_bundle_sha256": "example-source-bundle-payload-sha256"
+  },
+  "gates": {
+    "passed": [
+      "schema validation"
+    ],
+    "failed": [],
+    "blocked": [
+      "fixed runner replay not run",
+      "hidden shape verifier not run"
+    ]
+  }
+}
