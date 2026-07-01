@@ -14,8 +14,10 @@
 - Require promotion packets to pass
   `scripts/validate_promotion_packet.py --input path/to/promotion-packet.json`
   before any `promoted`, `replicated`, or `scaled` website status.
-- Fill trusted-only `hidden_cases/manifest.json` with shape-suite hashes before
-  promotion opens.
+- Populate trusted-only `hidden_cases/manifest.json` from the public shape in
+  `verifier/hidden-manifest.example.json` and require it to pass
+  `scripts/validate_hidden_manifest.py --input path/to/hidden_cases/manifest.json`
+  before promotion opens.
 - Publish warmup, repetition, and median timing policy.
 - Freeze per-track baseline records based on `verifier/baseline-record.example.json`.
 - Require promoted comparisons to use baseline records that pass

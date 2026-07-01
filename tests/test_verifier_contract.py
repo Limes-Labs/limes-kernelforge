@@ -33,6 +33,10 @@ class VerifierContractTests(unittest.TestCase):
             {"cpu-fixed", "apple-metal-fixed", "cuda-fixed", "rocm-fixed"},
         )
         self.assertFalse(contract["hidden_case_policy"]["hidden_cases_bundled"])
+        self.assertEqual(
+            contract["hidden_case_policy"]["public_schema_example_path"],
+            "verifier/hidden-manifest.example.json",
+        )
         self.assertFalse(contract["hidden_case_policy"]["candidate_selection_uses_hidden_cases"])
         self.assertEqual(contract["trusted_runner"]["network"], "disabled during official scoring")
 

@@ -25,7 +25,12 @@ runner must enforce before a KernelForge result can move beyond `candidate`.
    ```
 
 6. Mount trusted-only `hidden_cases/` with a private manifest and SHA-256
-   hashes.
+   hashes, then validate that manifest against the public shape:
+
+   ```bash
+   python3 scripts/validate_hidden_manifest.py --input path/to/hidden_cases/manifest.json
+   ```
+
 7. Validate the locked reference baseline record for the same runner track:
 
    ```bash
@@ -57,12 +62,13 @@ runner must enforce before a KernelForge result can move beyond `candidate`.
 - hidden case manifest and hashes;
 - fixed runner hardware and software fingerprint;
 - dependency lockfile or container digest;
+- hidden manifest JSON that passes `scripts/validate_hidden_manifest.py`;
 - locked reference-baseline timings for the same runner track;
 - warmup, repetition, timer, memory-cap, and aggregation logs;
-- integration-audit result with the same code hash.
+- integration-audit result with the same code hash;
 - fixed-runner manifest JSON that passes `scripts/validate_runner_manifest.py`;
 - baseline record JSON that passes `scripts/validate_baseline_record.py`;
-- replay-result JSON that passes `scripts/validate_replay_result.py`.
+- replay-result JSON that passes `scripts/validate_replay_result.py`;
 - promotion-packet JSON that passes
   `scripts/validate_promotion_packet.py`.
 

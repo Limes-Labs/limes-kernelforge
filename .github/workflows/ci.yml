@@ -39,6 +39,7 @@ jobs:
           python3 -m json.tool verifier/task-spec.json >/tmp/task-spec.json
           python3 -m json.tool verifier/trusted-runner-manifest.example.json >/tmp/trusted-runner-manifest.example.json
           python3 -m json.tool verifier/baseline-record.example.json >/tmp/baseline-record.example.json
+          python3 -m json.tool verifier/hidden-manifest.example.json >/tmp/hidden-manifest.example.json
       - name: Validate submission guard entrypoint
         run: python3 scripts/check_submission.py --help >/tmp/check-submission-help.txt
       - name: Validate local bundle guard entrypoint
@@ -63,6 +64,8 @@ jobs:
         run: python3 scripts/validate_runner_manifest.py --input verifier/trusted-runner-manifest.example.json
       - name: Validate baseline record example
         run: python3 scripts/validate_baseline_record.py --input verifier/baseline-record.example.json
+      - name: Validate hidden manifest example
+        run: python3 scripts/validate_hidden_manifest.py --input verifier/hidden-manifest.example.json
       - name: Validate promotion packet example
         run: python3 scripts/validate_promotion_packet.py --input templates/promotion-packet.example.json
       - name: Check whitespace

@@ -1,0 +1,80 @@
+{
+  "schema_version": "0.1.0",
+  "challenge": "limes-kernelforge",
+  "manifest_kind": "trusted-hidden-case-manifest",
+  "source": "example-schema-only",
+  "disclaimer": "Schema example only. This is not a real hidden manifest and does not disclose hidden cases.",
+  "hidden_manifest_ready": false,
+  "hash_algorithm": "sha256",
+  "case_policy": {
+    "candidate_selection_uses_hidden_cases": false,
+    "hidden_shapes_disclosed_to_candidates": false,
+    "fixed_runner_feedback_before_freeze": false
+  },
+  "case_suites": [
+    {
+      "id": "hidden-rmsnorm-float32-long-dim",
+      "primitive": "rmsnorm",
+      "dtype": "float32",
+      "shape_class": "long_hidden_dimension",
+      "case_count": 0,
+      "sha256": "example-rmsnorm-suite-sha256",
+      "disclosed_to_candidates": false
+    },
+    {
+      "id": "hidden-rope-float32-long-position",
+      "primitive": "rope",
+      "dtype": "float32",
+      "shape_class": "long_position_phase_wrap",
+      "case_count": 0,
+      "sha256": "example-rope-suite-sha256",
+      "disclosed_to_candidates": false
+    },
+    {
+      "id": "hidden-attention-float32-long-context",
+      "primitive": "attention",
+      "dtype": "float32",
+      "shape_class": "long_context_causal_prefill",
+      "case_count": 0,
+      "sha256": "example-attention-suite-sha256",
+      "disclosed_to_candidates": false
+    },
+    {
+      "id": "hidden-kv-decode-float32-shared-prefix",
+      "primitive": "kv_decode",
+      "dtype": "float32",
+      "shape_class": "shared_prefix_decode",
+      "case_count": 0,
+      "sha256": "example-kv-decode-suite-sha256",
+      "disclosed_to_candidates": false
+    }
+  ],
+  "runner_tracks": [
+    {
+      "id": "cpu-fixed",
+      "status": "pending-runner-freeze",
+      "hardware_fingerprint_sha256": "example-cpu-runner-sha256",
+      "disclosed_to_candidates": false
+    },
+    {
+      "id": "apple-metal-fixed",
+      "status": "pending-runner-freeze",
+      "hardware_fingerprint_sha256": "example-apple-runner-sha256",
+      "disclosed_to_candidates": false
+    },
+    {
+      "id": "cuda-fixed",
+      "status": "pending-runner-freeze",
+      "hardware_fingerprint_sha256": "example-cuda-runner-sha256",
+      "disclosed_to_candidates": false
+    },
+    {
+      "id": "rocm-fixed",
+      "status": "pending-runner-freeze",
+      "hardware_fingerprint_sha256": "example-rocm-runner-sha256",
+      "disclosed_to_candidates": false
+    }
+  ],
+  "tolerance_matrix_hash": "example-tolerance-matrix-sha256",
+  "timing_policy_hash": "example-timing-policy-sha256"
+}

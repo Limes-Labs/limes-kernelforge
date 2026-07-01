@@ -41,6 +41,7 @@ python3 scripts/build_submission_bundle.py --changed-file solution/rmsnorm.py --
 python3 scripts/validate_submission_bundle.py --input submission-bundle.json
 python3 scripts/validate_candidate_packet.py --input templates/candidate-packet.example.json --schema-only
 python3 scripts/validate_search_ledger.py --input templates/search-ledger.example.json
+python3 scripts/validate_hidden_manifest.py --input verifier/hidden-manifest.example.json
 python3 -m unittest discover -s tests
 python3 -m json.tool challenge.json
 ```
@@ -146,6 +147,13 @@ Locked baseline records should validate before promoted comparisons are allowed:
 python3 scripts/validate_baseline_record.py --input verifier/baseline-record.example.json
 ```
 
+Trusted-only hidden case manifests should validate against the public schema
+before any fixed-runner replay opens:
+
+```bash
+python3 scripts/validate_hidden_manifest.py --input verifier/hidden-manifest.example.json
+```
+
 Promotion packets bind correctness, fixed-runner timing, runner manifest,
 baseline record, replay output, agent notes, result card, and leaderboard entry
 into one machine-checkable evidence bundle before any public frontier status is
@@ -176,6 +184,8 @@ Local timings are not public frontier claims.
   for replay and rejects stale or protected-file bundles.
 - `harness/candidate_packet_guard.py`: validates local candidate evidence
   packets before fixed-runner replay is requested.
+- `harness/hidden_manifest_guard.py`: validates the trusted-only hidden case
+  manifest shape without exposing hidden shapes.
 - `baselines/public-smoke-baseline.json`: stable public smoke contract used to
   detect accidental benchmark drift. It is not an official fixed-runner result.
 - `cases/public_smoke/`: tiny public tensor cases and stress cases.
@@ -187,6 +197,8 @@ Local timings are not public frontier claims.
   setup manifest. It does not include hidden cases.
 - `verifier/baseline-record.example.json`: schema-only reference baseline
   record. It is not an official comparison baseline.
+- `verifier/hidden-manifest.example.json`: schema-only trusted hidden-case
+  manifest. It is not a real hidden manifest.
 - `docs/`: anti-cheat, promotion, launch, and agent-notes policies.
 - `docs/verifier-runbook.md`: trusted-runner replay checklist.
 - `docs/limeslabs-ingestion.md`: website ingestion and status validation rules.

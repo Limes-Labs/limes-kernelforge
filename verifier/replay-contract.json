@@ -6,6 +6,7 @@
   "task_spec_path": "verifier/task-spec.json",
   "trusted_runner_manifest_path": "verifier/trusted-runner-manifest.example.json",
   "baseline_record_path": "verifier/baseline-record.example.json",
+  "hidden_manifest_example_path": "verifier/hidden-manifest.example.json",
   "official_primary_metric": "hidden_geomean_runtime_ms",
   "public_metric": "public_geomean_runtime_ms",
   "score_direction": "minimize",
@@ -78,6 +79,7 @@
   "hidden_case_policy": {
     "hidden_cases_bundled": false,
     "manifest_path_on_trusted_runners": "hidden_cases/manifest.json",
+    "public_schema_example_path": "verifier/hidden-manifest.example.json",
     "hash_algorithm": "sha256",
     "candidate_selection_uses_hidden_cases": false,
     "hidden_shapes_are_not_disclosed_before_candidate_freeze": true

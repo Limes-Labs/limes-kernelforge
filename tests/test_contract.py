@@ -54,6 +54,8 @@ class ContractTests(unittest.TestCase):
         self.assertIn("scripts/validate_runner_manifest.py", challenge["commands"]["validateRunnerManifest"])
         self.assertIn("validateBaselineRecord", challenge["commands"])
         self.assertIn("scripts/validate_baseline_record.py", challenge["commands"]["validateBaselineRecord"])
+        self.assertIn("validateHiddenManifest", challenge["commands"])
+        self.assertIn("scripts/validate_hidden_manifest.py", challenge["commands"]["validateHiddenManifest"])
         self.assertIn("validatePromotionPacket", challenge["commands"])
         self.assertIn("scripts/validate_promotion_packet.py", challenge["commands"]["validatePromotionPacket"])
         self.assertEqual(verifier["challenge"], challenge["id"])
@@ -63,6 +65,7 @@ class ContractTests(unittest.TestCase):
             "verifier/trusted-runner-manifest.example.json",
         )
         self.assertEqual(verifier["baseline_record_path"], "verifier/baseline-record.example.json")
+        self.assertEqual(verifier["hidden_manifest_example_path"], "verifier/hidden-manifest.example.json")
         self.assertEqual(verifier["official_primary_metric"], challenge["score"]["primaryMetric"])
         self.assertEqual(verifier["protected_surface"]["editable_paths"], challenge["editablePaths"])
         self.assertEqual(verifier["protected_surface"]["forbidden_paths"], challenge["forbiddenPaths"])
