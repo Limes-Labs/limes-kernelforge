@@ -26,6 +26,7 @@ jobs:
       - name: Validate JSON templates
         run: |
           python3 -m json.tool templates/submission.json >/tmp/submission.json
+          python3 -m json.tool templates/submission-bundle.example.json >/tmp/submission-bundle.example.json
           python3 -m json.tool templates/leaderboard-entry.json >/tmp/leaderboard-entry.json
           python3 -m json.tool templates/agent-notes.example.json >/tmp/agent-notes.example.json
           python3 -m json.tool templates/search-ledger.example.json >/tmp/search-ledger.example.json
@@ -41,6 +42,10 @@ jobs:
         run: python3 scripts/check_submission.py --help >/tmp/check-submission-help.txt
       - name: Validate local bundle guard entrypoint
         run: python3 scripts/validate_local_bundle.py --help >/tmp/validate-local-bundle-help.txt
+      - name: Validate source bundle guard entrypoints
+        run: |
+          python3 scripts/build_submission_bundle.py --help >/tmp/build-submission-bundle-help.txt
+          python3 scripts/validate_submission_bundle.py --help >/tmp/validate-submission-bundle-help.txt
       - name: Validate limeslabs fixture ingestion
         run: python3 scripts/validate_leaderboard.py --input examples/limeslabs/leaderboard.example.json
       - name: Validate agent notes example
