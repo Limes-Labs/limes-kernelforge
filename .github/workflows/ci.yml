@@ -17,6 +17,8 @@ jobs:
         run: scripts/run_smoke.sh
       - name: Run public audit
         run: python3 scripts/run_public_audit.py
+      - name: Check public smoke baseline
+        run: python3 scripts/check_public_baseline.py --input baselines/public-smoke-baseline.json
       - name: Validate challenge contract
         run: python3 -m json.tool challenge.json >/tmp/challenge.json
       - name: Validate GitHub YAML
@@ -29,6 +31,7 @@ jobs:
           python3 -m json.tool templates/search-ledger.example.json >/tmp/search-ledger.example.json
           python3 -m json.tool templates/replay-result.example.json >/tmp/replay-result.example.json
           python3 -m json.tool templates/promotion-packet.example.json >/tmp/promotion-packet.example.json
+          python3 -m json.tool baselines/public-smoke-baseline.json >/tmp/public-smoke-baseline.json
           python3 -m json.tool examples/limeslabs/leaderboard.example.json >/tmp/limeslabs-leaderboard.example.json
           python3 -m json.tool verifier/replay-contract.json >/tmp/replay-contract.json
           python3 -m json.tool verifier/task-spec.json >/tmp/task-spec.json

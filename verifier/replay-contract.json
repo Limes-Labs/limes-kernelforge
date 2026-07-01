@@ -33,6 +33,7 @@
     ],
     "forbidden_paths": [
       "harness/**",
+      "baselines/**",
       "cases/**",
       "verifier/**",
       "hidden_cases/**",

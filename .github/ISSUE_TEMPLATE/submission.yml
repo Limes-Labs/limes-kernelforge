@@ -33,7 +33,7 @@ body:
       options:
         - label: I changed only `solution/rmsnorm.py`, `solution/rope.py`, `solution/attention.py`, `solution/kv_decode.py`, or `solution/native/README.md`.
           required: true
-        - label: I did not edit `harness/**`, `cases/**`, `verifier/**`, `hidden_cases/**`, `challenge.json`, `score.json`, or `leaderboard/**`.
+        - label: I did not edit `harness/**`, `baselines/**`, `cases/**`, `verifier/**`, `hidden_cases/**`, `challenge.json`, `score.json`, or `leaderboard/**`.
           required: true
         - label: I read `verifier/task-spec.json` and understand that public timings are candidate-only.
           required: true

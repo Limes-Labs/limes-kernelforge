@@ -8,12 +8,13 @@
 - [ ] This PR changes only allowed participant paths, or it is clearly marked as maintainer-only harness/governance work.
 - [ ] No hidden cases, protected verifier file, generated `score.json`, local cache, or leaderboard artifact is committed.
 - [ ] Public smoke timings are described as local/candidate telemetry only.
-- [ ] Participant submissions did not edit `harness/**`, `cases/**`, `verifier/**`, `hidden_cases/**`, `challenge.json`, `score.json`, or `leaderboard/**`.
+- [ ] Participant submissions did not edit `harness/**`, `baselines/**`, `cases/**`, `verifier/**`, `hidden_cases/**`, `challenge.json`, `score.json`, or `leaderboard/**`.
 
 ## Verification
 
 - [ ] `scripts/run_smoke.sh`
 - [ ] `python3 scripts/run_public_audit.py`
+- [ ] `python3 scripts/check_public_baseline.py --input baselines/public-smoke-baseline.json`
 - [ ] `python3 -m unittest discover -s tests`
 - [ ] `python3 -m json.tool challenge.json`
 - [ ] `python3 -m json.tool templates/submission.json`

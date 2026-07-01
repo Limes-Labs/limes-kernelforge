@@ -22,6 +22,7 @@ class ChallengeContractTests(unittest.TestCase):
         self.assertIn("solution/rmsnorm.py", contract["editablePaths"])
         for protected in [
             "harness/**",
+            "baselines/**",
             "cases/**",
             "verifier/**",
             "hidden_cases/**",
@@ -35,6 +36,7 @@ class ChallengeContractTests(unittest.TestCase):
         rules = (ROOT / "RULES.md").read_text(encoding="utf-8")
         for protected in [
             "harness/**",
+            "baselines/**",
             "cases/**",
             "verifier/**",
             "hidden_cases/**",

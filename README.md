@@ -24,9 +24,9 @@ and an integration audit inside a mini inference or training loop.
 - `solution/native/README.md` for future CUDA, Triton, Metal, HIP, or SIMD
   extension notes.
 
-Everything under `harness/`, `cases/`, `verifier/`, `hidden_cases/`,
-`leaderboard/`, `challenge.json`, and generated score files is protected for
-official runs.
+Everything under `harness/`, `baselines/`, `cases/`, `verifier/`,
+`hidden_cases/`, `leaderboard/`, `challenge.json`, and generated score files is
+protected for official runs.
 
 ## Quickstart
 
@@ -36,6 +36,7 @@ Use Python 3.10 or newer. No external packages are required.
 scripts/run_smoke.sh
 python3 scripts/run_invariant_probes.py
 python3 scripts/run_public_audit.py
+python3 scripts/check_public_baseline.py --input baselines/public-smoke-baseline.json
 python3 scripts/validate_search_ledger.py --input templates/search-ledger.example.json
 python3 -m unittest discover -s tests
 python3 -m json.tool challenge.json
@@ -142,6 +143,8 @@ Local timings are not public frontier claims.
   output, mutation safety, causal prefix invariance, and KV alias handling.
 - `harness/public_audit.py`: candidate-only static boundary and metamorphic
   audits for numerical shortcuts that public cases alone may miss.
+- `baselines/public-smoke-baseline.json`: stable public smoke contract used to
+  detect accidental benchmark drift. It is not an official fixed-runner result.
 - `cases/public_smoke/`: tiny public tensor cases and stress cases.
 - `verifier/replay-contract.json`: public fixed-runner, promotion, and
   ingestion contract. It does not include hidden cases.

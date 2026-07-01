@@ -1,0 +1,51 @@
+{
+  "baseline_kind": "public-smoke-contract",
+  "challenge": "limes-kernelforge",
+  "description": "Locks stable public smoke fields for benchmark drift checks; local timing fields are intentionally excluded.",
+  "invariant_probes": {
+    "ok": true,
+    "probe_count": 4,
+    "probe_names": [
+      "attention_prefix_invariance",
+      "kv_decode_alias_equivalence",
+      "rmsnorm_finite_shape",
+      "rope_inputs_are_not_mutated"
+    ]
+  },
+  "public_audit": {
+    "audit_count": 5,
+    "audit_names": [
+      "attention_value_shift_invariance",
+      "kv_decode_value_shift_invariance",
+      "rmsnorm_sign_symmetry",
+      "rope_identity_and_pair_norm",
+      "solution_static_boundary"
+    ],
+    "ok": true
+  },
+  "schema_version": "0.1.0",
+  "score_fields": {
+    "backend": "python-stdlib",
+    "correct": true,
+    "max_abs_error": 0.0,
+    "max_rel_error": 0.0,
+    "primary_correct": true,
+    "public_stress_case_count": 4,
+    "public_stress_correct": true,
+    "public_stress_max_abs_error": 0.0,
+    "public_stress_max_rel_error": 0.0,
+    "tolerance": {
+      "abs": 1e-09,
+      "rel": 1e-09
+    }
+  },
+  "skipped_score_fields": [
+    "public_geomean_runtime_ms",
+    "reference_public_geomean_runtime_ms",
+    "public_runtime_delta_ms",
+    "public_speedup_vs_reference",
+    "public_stress_geomean_runtime_ms",
+    "reference_public_stress_geomean_runtime_ms",
+    "public_stress_speedup_vs_reference"
+  ]
+}

@@ -15,6 +15,7 @@ class ContractTests(unittest.TestCase):
         forbidden = set(challenge["forbiddenPaths"])
         for required in {
             "harness/**",
+            "baselines/**",
             "cases/**",
             "verifier/**",
             "hidden_cases/**",
@@ -29,6 +30,8 @@ class ContractTests(unittest.TestCase):
         self.assertIn("scripts/run_invariant_probes.py", challenge["commands"]["probe"])
         self.assertIn("publicAudit", challenge["commands"])
         self.assertIn("scripts/run_public_audit.py", challenge["commands"]["publicAudit"])
+        self.assertIn("checkPublicBaseline", challenge["commands"])
+        self.assertIn("scripts/check_public_baseline.py", challenge["commands"]["checkPublicBaseline"])
         self.assertIn("validateLeaderboard", challenge["commands"])
         self.assertIn("scripts/validate_leaderboard.py", challenge["commands"]["validateLeaderboard"])
         self.assertIn("validateAgentNotes", challenge["commands"])

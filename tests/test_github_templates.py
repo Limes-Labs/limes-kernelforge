@@ -11,6 +11,7 @@ class GitHubTemplateTests(unittest.TestCase):
     def test_submission_form_names_protected_surface_and_replay_gates(self) -> None:
         form = (ROOT / ".github/ISSUE_TEMPLATE/submission.yml").read_text(encoding="utf-8")
         for phrase in [
+            "baselines/**",
             "verifier/**",
             "verifier/task-spec.json",
             "scripts/check_submission.py",
@@ -27,8 +28,10 @@ class GitHubTemplateTests(unittest.TestCase):
     def test_pull_request_template_keeps_validation_commands_visible(self) -> None:
         template = (ROOT / ".github/pull_request_template.md").read_text(encoding="utf-8")
         for phrase in [
+            "baselines/**",
             "verifier/**",
             "verifier/task-spec.json",
+            "scripts/check_public_baseline.py",
             "templates/agent-notes.example.json",
             "templates/search-ledger.example.json",
             "validate_local_bundle.py",
