@@ -29,6 +29,7 @@ REQUIRED_PUBLIC_SCORE_FIELDS = {
 }
 REQUIRED_INVARIANT_PROBE_FIELDS = {"ok", "probe_count"}
 REQUIRED_SEARCH_LEDGER_FIELDS = {"path", "validated"}
+REQUIRED_SOURCE_BUNDLE_FIELDS = {"path", "validated", "bundle_sha256"}
 
 
 def load_json(path: Path) -> dict[str, Any]:
@@ -95,6 +96,12 @@ def _looks_placeholder(value: Any) -> bool:
     return not stripped or stripped.startswith("<") or "Short description" in stripped
 
 
+def _looks_sha256(value: Any) -> bool:
+    if not isinstance(value, str):
+        return False
+    return len(value) == 64 and all(character in "0123456789abcdef" for character in value.lower())
+
+
 def _validate_invariant_probes(value: Any) -> list[str]:
     if not isinstance(value, dict):
         return ["manifest invariant_probes must be an object"]
@@ -120,6 +127,22 @@ def _validate_search_ledger(value: Any) -> list[str]:
         errors.append("manifest search_ledger.path must be concrete")
     if value.get("validated") is not True:
         errors.append("manifest search_ledger.validated must be true")
+    return errors
+
+
+def _validate_source_bundle(value: Any) -> list[str]:
+    if not isinstance(value, dict):
+        return ["manifest source_bundle must be an object"]
+    errors: list[str] = []
+    missing = sorted(REQUIRED_SOURCE_BUNDLE_FIELDS.difference(value))
+    if missing:
+        errors.append("manifest source_bundle missing fields: " + ", ".join(missing))
+    if _looks_placeholder(value.get("path")):
+        errors.append("manifest source_bundle.path must be concrete")
+    if value.get("validated") is not True:
+        errors.append("manifest source_bundle.validated must be true")
+    if not _looks_sha256(value.get("bundle_sha256")):
+        errors.append("manifest source_bundle.bundle_sha256 must be a lowercase sha256 hex string")
     return errors
 
 
@@ -168,6 +191,7 @@ def validate_manifest(manifest: dict[str, Any], contract: dict[str, Any]) -> lis
 
     errors.extend(_validate_invariant_probes(manifest.get("invariant_probes")))
     errors.extend(_validate_search_ledger(manifest.get("search_ledger")))
+    errors.extend(_validate_source_bundle(manifest.get("source_bundle")))
 
     if _looks_placeholder(manifest.get("hardware_fingerprint")):
         errors.append("manifest hardware_fingerprint must describe the local machine")

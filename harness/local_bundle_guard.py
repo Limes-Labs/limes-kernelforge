@@ -6,6 +6,7 @@ from harness.invariant_probes import run_invariant_probes
 from harness.public_audit import run_public_audit
 from harness.score import public_score
 from harness.search_ledger_guard import validate_ledger
+from harness.source_bundle_guard import validate_source_bundle
 from harness.submission_guard import validate_submission
 
 
@@ -123,6 +124,7 @@ def validate_local_bundle(
     contract: dict[str, Any],
     changed_paths: list[str],
     search_ledger: dict[str, Any] | None,
+    source_bundle: dict[str, Any] | None,
 ) -> dict[str, Any]:
     errors = validate_submission(manifest, contract, changed_paths)
 
@@ -137,6 +139,16 @@ def validate_local_bundle(
             for error in audit.get("errors", []):
                 errors.append(f"public_audit {audit.get('name')}: {error}")
     errors.extend(_compare_search_ledger(search_ledger, manifest.get("public_score")))
+    if source_bundle is None:
+        errors.append("source bundle JSON must be provided for local bundle validation")
+    else:
+        source_report = validate_source_bundle(
+            bundle=source_bundle,
+            contract=contract,
+            changed_paths=changed_paths,
+            source_commit=manifest.get("commit"),
+        )
+        errors.extend(f"source_bundle: {error}" for error in source_report["errors"])
 
     return {
         "ok": not errors,
@@ -156,5 +168,10 @@ def validate_local_bundle(
             "ok": fresh_audit.get("ok"),
             "audit_count": fresh_audit.get("audit_count"),
         },
+        "source_bundle_sha256": (
+            source_bundle.get("bundle_sha256")
+            if isinstance(source_bundle, dict)
+            else None
+        ),
         "errors": errors,
     }

@@ -1,0 +1,20 @@
+{
+  "schema_version": "0.1.0",
+  "challenge": "limes-kernelforge",
+  "bundle_kind": "editable-source-bundle",
+  "source_commit": "<git-sha>",
+  "changed_files": [
+    "solution/rmsnorm.py"
+  ],
+  "file_count": 1,
+  "total_size_bytes": 0,
+  "files": [
+    {
+      "path": "solution/rmsnorm.py",
+      "size_bytes": 0,
+      "sha256": "<sha256>",
+      "executable": false
+    }
+  ],
+  "bundle_sha256": "<sha256>"
+}

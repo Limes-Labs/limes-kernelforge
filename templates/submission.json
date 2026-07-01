@@ -39,6 +39,11 @@
     "path": "search-ledger.json",
     "validated": true
   },
+  "source_bundle": {
+    "path": "submission-bundle.json",
+    "validated": true,
+    "bundle_sha256": "<sha256>"
+  },
   "hardware_fingerprint": "local machine description",
   "native_extension": false,
   "method_summary": "Short description of the kernel idea.",

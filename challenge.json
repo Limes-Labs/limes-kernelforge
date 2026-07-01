@@ -33,6 +33,8 @@
     "probe": "python3 scripts/run_invariant_probes.py",
     "publicAudit": "python3 scripts/run_public_audit.py",
     "checkPublicBaseline": "python3 scripts/check_public_baseline.py --input baselines/public-smoke-baseline.json",
+    "buildSubmissionBundle": "python3 scripts/build_submission_bundle.py --output submission-bundle.json --base origin/main",
+    "validateSubmissionBundle": "python3 scripts/validate_submission_bundle.py --input submission-bundle.json",
     "verify": "python3 harness/verify_hidden.py --public-contract-only",
     "audit": "python3 scripts/check_submission.py --manifest submission.json --base origin/main",
     "validateLocalBundle": "python3 scripts/validate_local_bundle.py --manifest submission.json --base origin/main",

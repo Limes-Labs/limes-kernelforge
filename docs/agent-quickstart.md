@@ -29,18 +29,22 @@ Do not edit protected paths listed in `challenge.json`.
 3. Run `scripts/run_smoke.sh`.
 4. Run `python3 scripts/run_public_audit.py`.
 5. Run `python3 scripts/check_public_baseline.py --input baselines/public-smoke-baseline.json`.
-6. Record correctness, invariant probe output, public audit output, candidate timing, stress
-   diagnostics, reference timing, speedup, hardware, and failure modes.
-7. Fill `submission.json` from `templates/submission.json`, including stress
-   diagnostics, invariant probe status, and search-ledger validation status.
-8. Run `python3 scripts/check_submission.py --manifest submission.json --base origin/main`.
-9. Run `python3 scripts/validate_local_bundle.py --manifest submission.json --base origin/main`.
-10. Fill agent notes from `templates/agent-notes.example.json`.
-11. Run `python3 scripts/validate_agent_notes.py --input templates/agent-notes.example.json`.
-12. Fill the search ledger from `templates/search-ledger.example.json`.
-13. Run `python3 scripts/validate_search_ledger.py --input templates/search-ledger.example.json`.
-14. Keep negative or mixed attempts in notes and the search ledger.
-15. Stop when a candidate has a clear method summary and replay rationale.
+6. Record correctness, invariant probe output, public audit output, candidate
+   timing, stress diagnostics, reference timing, speedup, hardware, and failure
+   modes.
+7. Run `python3 scripts/build_submission_bundle.py --output submission-bundle.json --base origin/main`.
+8. Fill `submission.json` from `templates/submission.json`, including stress
+   diagnostics, invariant probe status, source-bundle hash, and search-ledger
+   validation status.
+9. Run `python3 scripts/validate_submission_bundle.py --input submission-bundle.json`.
+10. Run `python3 scripts/check_submission.py --manifest submission.json --base origin/main`.
+11. Run `python3 scripts/validate_local_bundle.py --manifest submission.json --base origin/main`.
+12. Fill agent notes from `templates/agent-notes.example.json`.
+13. Run `python3 scripts/validate_agent_notes.py --input templates/agent-notes.example.json`.
+14. Fill the search ledger from `templates/search-ledger.example.json`.
+15. Run `python3 scripts/validate_search_ledger.py --input templates/search-ledger.example.json`.
+16. Keep negative or mixed attempts in notes and the search ledger.
+17. Stop when a candidate has a clear method summary and replay rationale.
 
 ## Done Criteria
 
@@ -50,7 +54,8 @@ Do not edit protected paths listed in `challenge.json`.
 - Tests pass.
 - JSON templates still parse.
 - Submission preflight passes for the completed manifest.
-- Local bundle validation passes against freshly rerun correctness checks and probes.
+- Source bundle validation passes for the exact editable files selected for replay.
+- Local bundle validation passes against freshly rerun correctness checks, probes, source bundle, and search ledger.
 - Agent notes validation passes for the completed notes packet.
 - Search ledger validation passes for the completed search packet.
 - Numerical risks and hidden-shape assumptions are documented.

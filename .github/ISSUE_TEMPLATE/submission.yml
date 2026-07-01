@@ -56,7 +56,15 @@ body:
     id: preflight
     attributes:
       label: Preflight output
-      description: Paste output from `python3 scripts/check_submission.py --manifest submission.json --base origin/main` and `python3 scripts/validate_local_bundle.py --manifest submission.json --base origin/main`.
+      description: Paste output from `python3 scripts/check_submission.py --manifest submission.json --base origin/main`, `python3 scripts/validate_submission_bundle.py --input submission-bundle.json`, and `python3 scripts/validate_local_bundle.py --manifest submission.json --base origin/main`.
+      render: json
+    validations:
+      required: true
+  - type: textarea
+    id: source_bundle
+    attributes:
+      label: Source bundle
+      description: Paste the `bundle_sha256` and output from `python3 scripts/build_submission_bundle.py --output submission-bundle.json --base origin/main`.
       render: json
     validations:
       required: true

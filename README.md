@@ -37,6 +37,8 @@ scripts/run_smoke.sh
 python3 scripts/run_invariant_probes.py
 python3 scripts/run_public_audit.py
 python3 scripts/check_public_baseline.py --input baselines/public-smoke-baseline.json
+python3 scripts/build_submission_bundle.py --changed-file solution/rmsnorm.py --output submission-bundle.json
+python3 scripts/validate_submission_bundle.py --input submission-bundle.json
 python3 scripts/validate_search_ledger.py --input templates/search-ledger.example.json
 python3 -m unittest discover -s tests
 python3 -m json.tool challenge.json
@@ -68,19 +70,24 @@ Completed candidates should include a filled `submission.json` based on
 `templates/submission.json`. Before requesting fixed-runner replay, run:
 
 ```bash
+python3 scripts/build_submission_bundle.py --output submission-bundle.json --base origin/main
+python3 scripts/validate_submission_bundle.py --input submission-bundle.json
 python3 scripts/check_submission.py --manifest submission.json --base origin/main
 python3 scripts/validate_local_bundle.py --manifest submission.json --base origin/main
 ```
 
-The guard rejects protected-file edits, files outside the editable surface,
+The source-bundle step hashes only the editable files that will be replayed,
+rejects symlinks and protected paths, and writes a canonical `bundle_sha256`.
+Copy that digest into `submission.json` before running the manifest guard. The
+guard rejects protected-file edits, files outside the editable surface,
 placeholder manifest values, missing public-score fields, unknown primitive
 names, missing stress diagnostics, failed invariant probes, missing
 search-ledger validation, and candidates that are not correct on public smoke.
 The local bundle validator then reruns public correctness checks and invariant
-probes and checks the filled manifest plus search ledger against the fresh
-local outputs. It intentionally does not compare local timing fields, which
-remain candidate telemetry until fixed-runner replay. Passing preflight does not
-imply promotion; it only means the candidate is shaped for review.
+probes and checks the filled manifest, source bundle, and search ledger against
+the fresh local outputs. It intentionally does not compare local timing fields,
+which remain candidate telemetry until fixed-runner replay. Passing preflight
+does not imply promotion; it only means the candidate is shaped for review.
 
 ## Official Verifier Contract
 
@@ -143,6 +150,8 @@ Local timings are not public frontier claims.
   output, mutation safety, causal prefix invariance, and KV alias handling.
 - `harness/public_audit.py`: candidate-only static boundary and metamorphic
   audits for numerical shortcuts that public cases alone may miss.
+- `harness/source_bundle_guard.py`: hashes the editable source files selected
+  for replay and rejects stale or protected-file bundles.
 - `baselines/public-smoke-baseline.json`: stable public smoke contract used to
   detect accidental benchmark drift. It is not an official fixed-runner result.
 - `cases/public_smoke/`: tiny public tensor cases and stress cases.
@@ -162,6 +171,8 @@ Local timings are not public frontier claims.
 - `templates/agent-notes.example.json`: machine-checkable agent trial notes.
 - `templates/search-ledger.example.json`: machine-checkable search budget,
   attempt, stopping, and selection accounting.
+- `templates/submission-bundle.example.json`: schema-only editable source
+  bundle shape for replay packaging.
 - `templates/replay-result.example.json`: schema-only trusted replay result
   packet.
 - `templates/promotion-packet.example.json`: schema-only promotion evidence

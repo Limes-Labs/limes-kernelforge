@@ -2,6 +2,11 @@ __pycache__/
 *.pyc
 .DS_Store
 score.json
+submission.json
+submission-bundle.json
+search-ledger.json
+agent-notes.json
+replay-result.json
 runs/
 hidden_cases/
 leaderboard/

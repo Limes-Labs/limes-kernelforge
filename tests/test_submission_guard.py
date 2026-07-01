@@ -40,6 +40,11 @@ def valid_manifest() -> dict:
         "public_score": public_score,
         "invariant_probes": {"ok": True, "probe_count": 4},
         "search_ledger": {"path": "search-ledger.json", "validated": True},
+        "source_bundle": {
+            "path": "submission-bundle.json",
+            "validated": True,
+            "bundle_sha256": "f" * 64,
+        },
         "hardware_fingerprint": "local test machine",
         "native_extension": False,
         "method_summary": "Use a clearer loop ordering for the RMSNorm public path.",
@@ -94,6 +99,12 @@ class SubmissionGuardTests(unittest.TestCase):
         manifest["search_ledger"]["validated"] = False
         errors = validate_manifest(manifest, self.contract)
         self.assertTrue(any("search_ledger.validated" in error for error in errors))
+
+    def test_source_bundle_must_be_validated(self) -> None:
+        manifest = valid_manifest()
+        manifest["source_bundle"]["validated"] = False
+        errors = validate_manifest(manifest, self.contract)
+        self.assertTrue(any("source_bundle.validated" in error for error in errors))
 
     def test_checked_diff_must_match_manifest(self) -> None:
         errors = validate_submission(
