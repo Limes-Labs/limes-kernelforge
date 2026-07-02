@@ -32,5 +32,11 @@ Search-ledger packets should validate with
 `python3 scripts/validate_search_ledger.py --input path/to/search-ledger.json`
 before fixed-runner replay is requested.
 
+Trusted replay requests must validate with
+`python3 scripts/validate_replay_request.py --input path/to/replay-request.json`.
+The request must freeze the candidate, bind the local candidate packet, declare
+the fixed runner track, stay within replay quotas, and explicitly reject hidden
+or fixed-runner feedback for candidate selection.
+
 Mark as `negative` or `mixed` when a kernel wins a public microcase but fails
 hidden shapes, tolerance, or integration audit.

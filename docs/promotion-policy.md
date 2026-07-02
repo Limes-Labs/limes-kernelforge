@@ -15,6 +15,12 @@ local -> candidate -> verified -> promoted -> replicated -> scaled
 
 Public smoke timings never receive official rank by themselves.
 
+Before any fixed-runner replay is scheduled, the candidate must have a
+validated replay request. The request binds the candidate packet, runner track,
+replay quota, freeze state, and anti-probing declarations. A replay request can
+ask only for `verified`; later status changes require replay and promotion
+packets.
+
 Promotion requests must include a validated promotion packet. The packet binds
 the submission manifest, agent notes, trusted-runner manifest, locked reference
 baseline, replay result, result card, leaderboard entry, fixed runner track,

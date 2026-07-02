@@ -40,6 +40,15 @@ class VerifierContractTests(unittest.TestCase):
         self.assertFalse(contract["hidden_case_policy"]["candidate_selection_uses_hidden_cases"])
         self.assertEqual(contract["trusted_runner"]["network"], "disabled during official scoring")
 
+    def test_contract_defines_trusted_replay_request_policy(self) -> None:
+        policy = self.load_contract()["trusted_replay_request_policy"]
+        self.assertEqual(policy["request_template_path"], "templates/replay-request.example.json")
+        self.assertEqual(policy["requested_status"], "verified")
+        self.assertTrue(policy["runner_track_required"])
+        self.assertFalse(policy["hidden_feedback_for_candidate_selection"])
+        self.assertFalse(policy["fixed_runner_feedback_before_candidate_freeze"])
+        self.assertEqual(policy["max_trusted_replays_per_submission"], 1)
+
     def test_contract_defines_tolerance_matrix_and_result_fields(self) -> None:
         contract = self.load_contract()
         for dtype in ["float64", "float32", "float16", "bfloat16"]:

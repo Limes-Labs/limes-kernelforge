@@ -1,0 +1,104 @@
+{
+  "schema_version": "0.1.0",
+  "challenge": "limes-kernelforge",
+  "request_kind": "trusted-replay-request",
+  "source": "example-schema-only",
+  "disclaimer": "Schema example only. This is not an official replay request and does not trigger hidden evaluation.",
+  "request_id": "example-kernelforge-replay-request",
+  "submission_id": "example-public-smoke-baseline",
+  "candidate_packet_id": "example-kernelforge-local-candidate",
+  "candidate_commit": "example-commit",
+  "requested_status": "verified",
+  "requested_metric": "hidden_geomean_runtime_ms",
+  "direction": "minimize",
+  "runner_track": "cpu-fixed",
+  "replay_ready": false,
+  "artifacts": {
+    "candidate_packet": {
+      "path": "candidate-packet.json",
+      "sha256": "example-candidate-packet-sha256",
+      "validated": true
+    },
+    "submission_manifest": {
+      "path": "submission.json",
+      "sha256": "example-submission-sha256",
+      "validated": true
+    },
+    "source_bundle": {
+      "path": "submission-bundle.json",
+      "sha256": "example-source-bundle-sha256",
+      "validated": true
+    },
+    "search_ledger": {
+      "path": "search-ledger.json",
+      "sha256": "example-search-ledger-sha256",
+      "validated": true
+    },
+    "agent_notes": {
+      "path": "agent-notes.json",
+      "sha256": "example-agent-notes-sha256",
+      "validated": true
+    },
+    "public_score": {
+      "path": "score.json",
+      "sha256": "example-public-score-sha256",
+      "validated": true
+    },
+    "invariant_probes": {
+      "path": "invariant-probes.json",
+      "sha256": "example-invariant-probes-sha256",
+      "validated": true
+    },
+    "public_audit": {
+      "path": "public-audit.json",
+      "sha256": "example-public-audit-sha256",
+      "validated": true
+    }
+  },
+  "eligibility": {
+    "candidate_packet_validated": true,
+    "submission_preflight_passed": true,
+    "source_bundle_validated": true,
+    "search_ledger_validated": true,
+    "agent_notes_validated": true,
+    "public_score_present": true,
+    "public_correctness_passed": true,
+    "public_stress_correctness_passed": true,
+    "invariant_probes_passed": true,
+    "public_audit_passed": true,
+    "local_bundle_validated": true,
+    "no_forbidden_paths": true,
+    "fixed_runner_track_declared": true,
+    "candidate_frozen": true,
+    "mutable_after_request": false
+  },
+  "anti_probing": {
+    "hidden_feedback_requested": false,
+    "hidden_metric_seen_by_submitter": false,
+    "selected_after_hidden_feedback": false,
+    "private_leaderboard_feedback_used": false,
+    "fixed_runner_feedback_before_candidate_freeze": false,
+    "request_influences_candidate_selection": false,
+    "same_candidate_previously_replayed": false,
+    "requested_outputs": [
+      "status",
+      "official_result_packet",
+      "promotion_gate_summary",
+      "fixed_runner_summary",
+      "result_card_if_promotable"
+    ]
+  },
+  "replay_budget": {
+    "max_trusted_replays_per_submission": 1,
+    "max_trusted_replays_per_team_per_7_days": 2,
+    "max_trusted_replays_per_team_per_30_days": 5,
+    "request_count_for_submission": 1,
+    "team_request_count_7_days": 1,
+    "team_request_count_30_days": 1
+  },
+  "review": {
+    "reviewer": "example-reviewer",
+    "decision": "example",
+    "notes": "Schema example only. A real request needs maintainer approval before fixed-runner replay."
+  }
+}

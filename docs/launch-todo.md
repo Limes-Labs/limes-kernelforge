@@ -11,6 +11,9 @@
   `scripts/validate_runner_manifest.py --input path/to/trusted-runner-manifest.json`.
 - Require fixed-runner outputs to pass
   `scripts/validate_replay_result.py --input path/to/replay-result.json`.
+- Require fixed-runner replay requests to pass
+  `scripts/validate_replay_request.py --input path/to/replay-request.json`
+  before hidden work is scheduled.
 - Require promotion packets to pass
   `scripts/validate_promotion_packet.py --input path/to/promotion-packet.json`
   before any `promoted`, `replicated`, or `scaled` website status.
@@ -23,6 +26,7 @@
 - Require promoted comparisons to use baseline records that pass
   `scripts/validate_baseline_record.py --input path/to/baseline-record.json`.
 - Define memory caps and measurement method.
+- Wire replay-request quotas into the fixed-runner queue.
 - Define native extension submission and sandbox rules.
 - Add invalid optimization pattern tests.
 - Add numerical edge cases such as long vectors, repeated keys, and near-zero

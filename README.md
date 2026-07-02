@@ -41,6 +41,7 @@ python3 scripts/build_submission_bundle.py --changed-file solution/rmsnorm.py --
 python3 scripts/validate_submission_bundle.py --input submission-bundle.json
 python3 scripts/validate_candidate_packet.py --input templates/candidate-packet.example.json --schema-only
 python3 scripts/validate_search_ledger.py --input templates/search-ledger.example.json
+python3 scripts/validate_replay_request.py --input templates/replay-request.example.json --schema-only
 python3 scripts/validate_hidden_manifest.py --input verifier/hidden-manifest.example.json
 python3 -m unittest discover -s tests
 python3 -m json.tool challenge.json
@@ -111,6 +112,16 @@ A local candidate packet is still candidate-only evidence. It records that the
 public artifacts are internally consistent; it does not replace hidden
 correctness checks, fixed-runner timing, memory-cap review, or integration
 audit.
+
+Trusted replay requests should be validated before they enter any fixed-runner
+queue:
+
+```bash
+python3 scripts/validate_replay_request.py --input templates/replay-request.example.json --schema-only
+```
+
+For real requests, omit `--schema-only` so the guard can check artifact hashes,
+the referenced candidate packet, and the requested fixed runner track.
 
 ## Official Verifier Contract
 
@@ -184,6 +195,8 @@ Local timings are not public frontier claims.
   for replay and rejects stale or protected-file bundles.
 - `harness/candidate_packet_guard.py`: validates local candidate evidence
   packets before fixed-runner replay is requested.
+- `harness/replay_request_guard.py`: validates anti-probing replay requests
+  before fixed-runner access.
 - `harness/hidden_manifest_guard.py`: validates the trusted-only hidden case
   manifest shape without exposing hidden shapes.
 - `baselines/public-smoke-baseline.json`: stable public smoke contract used to
@@ -211,6 +224,8 @@ Local timings are not public frontier claims.
   bundle shape for replay packaging.
 - `templates/candidate-packet.example.json`: schema-only local candidate packet
   shape for agents and reviewers.
+- `templates/replay-request.example.json`: schema-only fixed-runner replay
+  request shape. It is not an official replay request.
 - `templates/replay-result.example.json`: schema-only trusted replay result
   packet.
 - `templates/promotion-packet.example.json`: schema-only promotion evidence

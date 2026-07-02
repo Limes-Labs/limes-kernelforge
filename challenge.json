@@ -43,6 +43,7 @@
     "validateLeaderboard": "python3 scripts/validate_leaderboard.py --input examples/limeslabs/leaderboard.example.json",
     "validateAgentNotes": "python3 scripts/validate_agent_notes.py --input templates/agent-notes.example.json",
     "validateSearchLedger": "python3 scripts/validate_search_ledger.py --input templates/search-ledger.example.json",
+    "validateReplayRequest": "python3 scripts/validate_replay_request.py --input templates/replay-request.example.json --schema-only",
     "validateReplayResult": "python3 scripts/validate_replay_result.py --input templates/replay-result.example.json",
     "validateRunnerManifest": "python3 scripts/validate_runner_manifest.py --input verifier/trusted-runner-manifest.example.json",
     "validateBaselineRecord": "python3 scripts/validate_baseline_record.py --input verifier/baseline-record.example.json",

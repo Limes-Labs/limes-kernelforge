@@ -31,6 +31,7 @@ jobs:
           python3 -m json.tool templates/leaderboard-entry.json >/tmp/leaderboard-entry.json
           python3 -m json.tool templates/agent-notes.example.json >/tmp/agent-notes.example.json
           python3 -m json.tool templates/search-ledger.example.json >/tmp/search-ledger.example.json
+          python3 -m json.tool templates/replay-request.example.json >/tmp/replay-request.example.json
           python3 -m json.tool templates/replay-result.example.json >/tmp/replay-result.example.json
           python3 -m json.tool templates/promotion-packet.example.json >/tmp/promotion-packet.example.json
           python3 -m json.tool baselines/public-smoke-baseline.json >/tmp/public-smoke-baseline.json
@@ -58,6 +59,8 @@ jobs:
         run: python3 scripts/validate_agent_notes.py --input templates/agent-notes.example.json
       - name: Validate search ledger example
         run: python3 scripts/validate_search_ledger.py --input templates/search-ledger.example.json
+      - name: Validate replay request example
+        run: python3 scripts/validate_replay_request.py --input templates/replay-request.example.json --schema-only
       - name: Validate replay-result example
         run: python3 scripts/validate_replay_result.py --input templates/replay-result.example.json
       - name: Validate runner manifest example
